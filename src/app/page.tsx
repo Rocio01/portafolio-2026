@@ -1,18 +1,14 @@
-import { Button } from "@/components/button";
-
+// Placeholder until the header and hero sections land (backlog issues 8 and 9).
+// Copy from docs/content.md (hero.label).
 export default function Home() {
   return (
-    <main className="mx-auto flex w-full max-w-2xl flex-1 flex-col justify-center gap-6 px-6 py-16">
+    <main className="mx-auto flex w-full max-w-2xl flex-1 flex-col justify-center gap-4 px-6 py-16">
       <h1 className="text-4xl font-semibold tracking-tight">
-        Next.js Template
+        Zulma Rocio Martinez
       </h1>
       <p className="text-lg text-muted">
-        Edit <code className="font-mono">src/app/page.tsx</code> to get started.
+        Frontend Developer · React · TypeScript · Next.js
       </p>
-      <div className="flex gap-3">
-        <Button>Primary</Button>
-        <Button variant="secondary">Secondary</Button>
-      </div>
     </main>
   );
 }

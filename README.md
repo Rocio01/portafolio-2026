@@ -1,18 +1,18 @@
-# Next.js Template
+# Zulma Rocio Martinez · Portfolio
 
-A minimal starter for static sites: Next.js (App Router), TypeScript (strict),
-Tailwind CSS, Vitest, Cypress and GitHub Actions. The build is a static export,
-so any static host can serve it. This README covers Cloudflare Pages.
+Personal portfolio of Zulma Rocio Martinez, frontend developer. A static
+Next.js site in English and Spanish, with light and dark themes, deployed on
+Cloudflare Pages.
 
-It deliberately has no i18n, auth, database or UI library.
+Built with Next.js (App Router, static export), TypeScript (strict), Tailwind
+CSS, Vitest, Cypress and GitHub Actions. Created from my
+[Next.js template](https://github.com/Rocio01/nextjs-template).
 
-## Use this template
+Project documents:
 
-On GitHub, click **Use this template** to create a new repository. (To turn
-your own copy into a template: **Settings > General > Template repository**.)
-
-Then update the site name and description in `src/app/layout.tsx`, and replace
-`src/app/icon.svg` and `src/app/opengraph-image.png`.
+- [`docs/brief.md`](docs/brief.md): goals, audience and scope
+- [`docs/backlog.md`](docs/backlog.md): sprints and issues
+- [`docs/content.md`](docs/content.md): all copy in English and Spanish
 
 ## Requirements
 
@@ -74,8 +74,13 @@ against the static build).
 src/
   app/          Routes, layout, metadata, tokens.css, icon, OG image, sitemap, robots
   components/   Reusable UI components and their tests
+  sections/     Page sections (header, hero, experience, ...)
+  i18n/         Typed dictionaries for English and Spanish
+  theme/        Theme provider and tokens
+  data/         Experience, projects and stack data
   lib/          Logic without UI (env validation, helpers)
 cypress/e2e/    End-to-end tests
+docs/           Brief, backlog and content
 .github/        CI workflow, Dependabot, PR and issue templates
 ```
 
