@@ -1,1 +1,1 @@
-Next.js Template: a minimal, static Next.js starter.
+Zulma Rocio Martinez, Frontend Developer: React, TypeScript, Next.js.

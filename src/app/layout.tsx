@@ -11,17 +11,23 @@ const inter = Inter({
   subsets: ["latin"],
 });
 
-const siteName = "Next.js Template";
-const description = "A minimal, static Next.js starter.";
+// Copy from docs/content.md (hero.label, hero.intro). Per-language titles and
+// descriptions come with the i18n routes (backlog issue 18).
+const siteName = "Zulma Rocio Martinez";
+const description =
+  "Frontend developer with 4+ years of production experience, now open to remote frontend and full-stack roles.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(env.NEXT_PUBLIC_SITE_URL),
-  title: { default: siteName, template: `%s | ${siteName}` },
+  title: {
+    default: `${siteName} · Frontend Developer`,
+    template: `%s | ${siteName}`,
+  },
   description,
   openGraph: {
     type: "website",
     siteName,
-    title: siteName,
+    title: `${siteName} · Frontend Developer`,
     description,
     url: "/",
   },
