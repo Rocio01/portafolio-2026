@@ -1,0 +1,15 @@
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 5
+    ignore:
+      # @types/node must match the Node major in .nvmrc; bump both together.
+      - dependency-name: "@types/node"
+        update-types: [version-update:semver-major]
+    groups:
+      # One PR for all minor and patch updates; majors arrive one by one.
+      minor-and-patch:
+        update-types: [minor, patch]

@@ -1,0 +1,71 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+# A new push to the same branch cancels the run that is now outdated.
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      # Placeholder so env validation passes; real value is set on the host.
+      NEXT_PUBLIC_SITE_URL: https://example.com
+      # The e2e job runs Cypress; this job does not need its binary.
+      CYPRESS_INSTALL_BINARY: 0
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+
+      - run: npm ci
+      - run: npm run lint
+      - run: npm run lint:secrets
+      - run: npm run typecheck
+      - run: npm test
+      - run: npm run build
+
+  # Runs in parallel with `verify`: builds the static site, serves `out/`
+  # and runs the Cypress smoke test against it.
+  e2e:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      NEXT_PUBLIC_SITE_URL: https://example.com
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+
+      # The Cypress binary (~500 MB) lives outside node_modules; cache it
+      # so most runs skip the download.
+      - uses: actions/cache@v6
+        with:
+          path: ~/.cache/Cypress
+          key: cypress-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+
+      - run: npm ci
+      - run: npx cypress verify
+      - run: npm run test:e2e
+
+      - uses: actions/upload-artifact@v7
+        if: failure()
+        with:
+          name: cypress-screenshots
+          path: cypress/screenshots
+          if-no-files-found: ignore

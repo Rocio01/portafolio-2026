@@ -1,0 +1,34 @@
+name: Feature request
+description: Propose a new feature or a change.
+labels: [enhancement]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+      description: What user problem does this solve? Who has it?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed solution
+      description: What should we build? Mention alternatives you considered.
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance criteria
+      description: Checkable statements that define "done".
+      placeholder: |
+        - [ ] Given ..., when ..., then ...
+        - [ ] Works in light and dark mode
+        - [ ] Covered by tests
+    validations:
+      required: true
+  - type: textarea
+    id: out-of-scope
+    attributes:
+      label: Out of scope
+      description: What this request does not include.

@@ -1,0 +1,38 @@
+/*
+ * Design tokens: the single source of truth for colors and radii.
+ * globals.css maps these to Tailwind utilities (bg-bg, text-fg, ...).
+ * Components use the utilities, never raw hex values.
+ */
+:root {
+  --color-bg: #ffffff;
+  --color-fg: #171717;
+  --color-muted: #52525b;
+  --color-border: #e4e4e7;
+  --color-accent: #2563eb;
+  --color-accent-fg: #ffffff;
+  --color-accent-hover: #1d4ed8;
+  --color-surface: #f4f4f5;
+  --color-surface-hover: #e4e4e7;
+  --color-focus: #2563eb;
+
+  --radius-md: 0.5rem;
+
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-bg: #0a0a0a;
+    --color-fg: #ededed;
+    --color-muted: #a1a1aa;
+    --color-border: #27272a;
+    --color-accent: #3b82f6;
+    --color-accent-fg: #ffffff;
+    --color-accent-hover: #2563eb;
+    --color-surface: #18181b;
+    --color-surface-hover: #27272a;
+    --color-focus: #60a5fa;
+
+    color-scheme: dark;
+  }
+}
