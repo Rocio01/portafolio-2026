@@ -38,4 +38,16 @@ describe("Contact", () => {
     const email = screen.getByRole("link", { name: /Escríbeme/ });
     expect(email).toHaveTextContent("zrmartinezg@gmail.com");
   });
+
+  it("opens LinkedIn and GitHub in a new tab, but not the email", () => {
+    render(<Contact t={en} />);
+    for (const name of ["LinkedIn", "GitHub"]) {
+      const link = screen.getByRole("link", { name });
+      expect(link).toHaveAttribute("target", "_blank");
+      expect(link).toHaveAttribute("rel", "noopener noreferrer");
+    }
+    expect(screen.getByRole("link", { name: /Email me/ })).not.toHaveAttribute(
+      "target",
+    );
+  });
 });

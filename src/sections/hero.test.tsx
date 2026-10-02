@@ -42,4 +42,16 @@ describe("Hero", () => {
       "top",
     );
   });
+
+  it("opens GitHub and LinkedIn in a new tab, but not the resume", () => {
+    render(<Hero t={en} />);
+    for (const name of ["GitHub", "LinkedIn"]) {
+      const link = screen.getByRole("link", { name });
+      expect(link).toHaveAttribute("target", "_blank");
+      expect(link).toHaveAttribute("rel", "noopener noreferrer");
+    }
+    expect(
+      screen.getByRole("link", { name: en.hero.resume }),
+    ).not.toHaveAttribute("target");
+  });
 });

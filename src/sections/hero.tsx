@@ -1,6 +1,6 @@
 import { ButtonLink } from "@/components/button";
 import { Container } from "@/components/container";
-import { LINKS } from "@/data/links";
+import { LINKS, NEW_TAB } from "@/data/links";
 import type { Dictionary } from "@/i18n/en";
 
 /**
@@ -35,10 +35,20 @@ export function Hero({ t }: { t: Dictionary }) {
             {t.hero.resume}
           </ButtonLink>
           <div className="grid grid-cols-2 gap-3 md:flex">
-            <ButtonLink href={LINKS.github} variant="outline" size="lg">
+            <ButtonLink
+              href={LINKS.github}
+              {...NEW_TAB}
+              variant="outline"
+              size="lg"
+            >
               GitHub
             </ButtonLink>
-            <ButtonLink href={LINKS.linkedin} variant="outline" size="lg">
+            <ButtonLink
+              href={LINKS.linkedin}
+              {...NEW_TAB}
+              variant="outline"
+              size="lg"
+            >
               LinkedIn
             </ButtonLink>
           </div>

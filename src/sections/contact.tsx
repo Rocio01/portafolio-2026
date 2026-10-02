@@ -1,7 +1,7 @@
 import { ButtonLink } from "@/components/button";
 import { Card } from "@/components/card";
 import { Container } from "@/components/container";
-import { LINKS } from "@/data/links";
+import { LINKS, NEW_TAB } from "@/data/links";
 import type { Dictionary } from "@/i18n/en";
 
 /**
@@ -31,10 +31,20 @@ export function Contact({ t }: { t: Dictionary }) {
               <span className="md:hidden">{t.contact.email}</span>
               <span className="hidden md:inline">{address}</span>
             </ButtonLink>
-            <ButtonLink href={LINKS.linkedin} variant="outline" size="lg">
+            <ButtonLink
+              href={LINKS.linkedin}
+              {...NEW_TAB}
+              variant="outline"
+              size="lg"
+            >
               LinkedIn
             </ButtonLink>
-            <ButtonLink href={LINKS.github} variant="outline" size="lg">
+            <ButtonLink
+              href={LINKS.github}
+              {...NEW_TAB}
+              variant="outline"
+              size="lg"
+            >
               GitHub
             </ButtonLink>
           </div>

@@ -1,5 +1,6 @@
 import Image from "next/image";
 
+import { NEW_TAB } from "@/data/links";
 import type { Project } from "@/data/projects";
 import type { Locale } from "@/i18n/config";
 import type { Dictionary } from "@/i18n/en";
@@ -45,7 +46,12 @@ export function ProjectCard({
         {links.length > 0 && (
           <div className="flex gap-3 pt-1 md:mt-auto md:flex-wrap md:gap-4 md:pt-1.5">
             {links.map((link) => (
-              <a key={link.label} href={link.href} className={linkClasses}>
+              <a
+                key={link.label}
+                href={link.href}
+                {...NEW_TAB}
+                className={linkClasses}
+              >
                 {link.label}
                 <span aria-hidden="true" className="hidden md:inline">
                   &nbsp;→
