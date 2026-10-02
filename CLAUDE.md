@@ -38,7 +38,7 @@ Next.js (App Router, static export), React, TypeScript (strict), Tailwind CSS,
 Vitest, Cypress, GitHub Actions, Cloudflare Pages. This repo was created from
 my Next.js template; keep its tooling and conventions.
 
-No UI library. No i18n library unless the typed-dictionary approach proves
+No UI library. Motion (`motion` package, with `LazyMotion`) only for the hero entrance and section reveals (backlog item 23); everything else is CSS. No i18n library unless the typed-dictionary approach proves
 insufficient. Do not add a dependency without a clear reason that you state
 in the PR.
 

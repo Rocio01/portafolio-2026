@@ -75,8 +75,8 @@ CI already comes with the template.
 
 ## Sprint 2 — "All the content"
 
-**Sprint goal:** every section from the design is built with real content, in both languages, on mobile and desktop.
-**Points:** 14
+**Sprint goal:** every section from the design is built with real content, in both languages, on mobile and desktop, with the hero entrance and section reveals.
+**Points:** 17
 
 ### 10. Tech stack strip `[section]` · 1 pt
 
@@ -109,6 +109,18 @@ CI already comes with the template.
 ### 16. Responsive pass `[qa]` · 2 pts
 
 - [ ] Checked at 390, 768 and 1280px: no horizontal scroll, no clipped text
+
+### 23. Motion: hero entrance and section reveals `[feature]` `[a11y]` · 3 pts
+
+Added after planning: purposeful motion is part of v1 (see `docs/brief.md`).
+
+- [ ] Motion (`motion` package) loaded with `LazyMotion` and `m`, only in the components that animate
+- [ ] Hero: label, headline, intro and buttons enter in sequence; each step 0.3–0.6 s
+- [ ] Sections fade and rise in the first time they enter the viewport
+- [ ] Project cards lift slightly on hover, and the theme change cross-fades (CSS only)
+- [ ] With `prefers-reduced-motion: reduce`, everything appears with no movement
+- [ ] The hero headline is visible in the static HTML before JavaScript loads, so the largest paint is not delayed
+- [ ] Lighthouse mobile performance stays at 90+
 
 ---
 
