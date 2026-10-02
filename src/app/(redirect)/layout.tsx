@@ -25,7 +25,8 @@ export const metadata: Metadata = {
 export default function RedirectLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      {/* See app/[lang]/layout.tsx: extensions add attributes to <body>. */}
+      <body suppressHydrationWarning>{children}</body>
     </html>
   );
 }
