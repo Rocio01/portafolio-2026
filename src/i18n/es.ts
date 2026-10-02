@@ -28,4 +28,7 @@ export const es: Dictionary = {
       "Desarrolladora frontend con más de 4 años de experiencia en producción, abierta a roles remotos de frontend y full-stack.",
     resume: "Descargar hoja de vida",
   },
+  stack: {
+    label: "Tecnologías",
+  },
 };
