@@ -22,10 +22,11 @@ export function Header({ locale, t }: { locale: Locale; t: Dictionary }) {
   return (
     <header className="border-b border-border md:border-b-0">
       <Container className="flex flex-wrap items-center gap-1 py-4 md:gap-2 md:py-7">
-        {/* The design's header shows the short name. */}
+        {/* The design's header shows the short name; 16px under 360px so the
+            name and the three controls stay on one row. */}
         <a
           href="#top"
-          className="mr-auto font-heading text-lg font-bold text-ink no-underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-link md:text-xl"
+          className="mr-auto font-heading text-lg font-bold text-ink no-underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-link max-[360px]:text-base md:text-xl"
         >
           Zulma Martinez
         </a>
