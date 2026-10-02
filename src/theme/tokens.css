@@ -25,6 +25,10 @@
   --link: light-dark(#1f3fbf, #9db0ff);
   --accent: #2443c9; /* button fill, same in both themes */
   --accent-text: light-dark(#2443c9, #92a1e4); /* labels */
+  --dash: light-dark(
+    #b9bbb3,
+    #3a3d46
+  ); /* decorative separators and dashed borders, from the design; never text */
 }
 
 :root[data-theme="light"] {

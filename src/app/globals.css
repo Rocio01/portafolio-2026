@@ -19,6 +19,7 @@
   --color-link: var(--link);
   --color-accent: var(--accent);
   --color-accent-text: var(--accent-text);
+  --color-dash: var(--dash);
 
   --font-sans: var(--font-plex-sans);
   --font-heading: var(--font-space-grotesk);

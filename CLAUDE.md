@@ -70,20 +70,21 @@ src/
 Fonts: **Space Grotesk** (headings, 600), **IBM Plex Sans** (body, 400/500),
 **JetBrains Mono** (labels, small meta).
 
-| Token                    | Light     | Dark      |
-| ------------------------ | --------- | --------- |
-| `--bg`                   | `#F3F4F1` | `#111215` |
-| `--ink`                  | `#17181C` | `#ECEDEF` |
-| `--text2`                | `#3A3D45` | `#B8BBC3` |
-| `--muted`                | `#5A5E68` | `#9094A0` |
-| `--border`               | `#D9DAD4` | `#2A2C33` |
-| `--surface`              | `#FFFFFF` | `#1A1C21` |
-| `--divider`              | `#ECECE7` | `#25272D` |
-| `--tag-bg`               | `#EEF1FB` | `#1F2742` |
-| `--tag-fg`               | `#1F3FBF` | `#A9B8FF` |
-| `--link`                 | `#1F3FBF` | `#9DB0FF` |
-| `--accent` (button fill) | `#2443C9` | `#2443C9` |
-| `--accent-text` (labels) | `#2443C9` | `#92A1E4` |
+| Token                      | Light     | Dark      |
+| -------------------------- | --------- | --------- |
+| `--bg`                     | `#F3F4F1` | `#111215` |
+| `--ink`                    | `#17181C` | `#ECEDEF` |
+| `--text2`                  | `#3A3D45` | `#B8BBC3` |
+| `--muted`                  | `#5A5E68` | `#9094A0` |
+| `--border`                 | `#D9DAD4` | `#2A2C33` |
+| `--surface`                | `#FFFFFF` | `#1A1C21` |
+| `--divider`                | `#ECECE7` | `#25272D` |
+| `--tag-bg`                 | `#EEF1FB` | `#1F2742` |
+| `--tag-fg`                 | `#1F3FBF` | `#A9B8FF` |
+| `--link`                   | `#1F3FBF` | `#9DB0FF` |
+| `--accent` (button fill)   | `#2443C9` | `#2443C9` |
+| `--accent-text` (labels)   | `#2443C9` | `#92A1E4` |
+| `--dash` (decorative only) | `#B9BBB3` | `#3A3D46` |
 
 Colors come from the tokens through Tailwind utilities. Do not hard-code hex
 values in components.
