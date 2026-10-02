@@ -22,11 +22,11 @@ export function LanguageToggle({
     <div className="flex items-center font-mono text-[13px]">
       <span
         aria-current="true"
-        className="px-2 font-medium text-ink max-[359px]:hidden"
+        className="px-2 font-medium text-ink max-[360px]:hidden"
       >
         {locale.toUpperCase()}
       </span>
-      <span aria-hidden="true" className="text-dash max-[359px]:hidden">
+      <span aria-hidden="true" className="text-dash max-[360px]:hidden">
         /
       </span>
       <a
@@ -34,6 +34,8 @@ export function LanguageToggle({
         hrefLang={other}
         lang={other}
         aria-label={switchToLabel}
+        // A tooltip for the compact header, where "ES" or "EN" stands alone.
+        title={switchToLabel}
         className="inline-flex min-h-11 min-w-11 items-center justify-center px-2 text-muted no-underline hover:text-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-link"
       >
         {other.toUpperCase()}

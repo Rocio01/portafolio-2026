@@ -26,7 +26,7 @@ export function Header({ locale, t }: { locale: Locale; t: Dictionary }) {
             name and the three controls stay on one row. */}
         <a
           href="#top"
-          className="mr-auto font-heading text-lg font-bold text-ink no-underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-link max-[359px]:text-base md:text-xl"
+          className="mr-auto font-heading text-lg font-bold text-ink no-underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-link max-[360px]:text-base md:text-xl"
         >
           Zulma Martinez
         </a>
