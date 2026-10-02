@@ -22,6 +22,10 @@ export const en = {
   },
   hero: {
     label: "Frontend Developer · React · TypeScript · Next.js",
+    title: "I build and ship production web apps, from architecture to deploy.",
+    intro:
+      "Frontend developer with 4+ years of production experience, now open to remote frontend and full-stack roles.",
+    resume: "Download resume",
   },
 };
 

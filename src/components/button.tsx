@@ -17,6 +17,8 @@ const variants = {
 const sizes = {
   /** 48px tall: the design's standard button. */
   md: "min-h-12 px-[22px] text-base",
+  /** 52px tall on mobile, 48px from 768px: full-width buttons in the hero and contact card. */
+  lg: "min-h-[52px] px-[22px] text-base md:min-h-12",
   /** 44px tall, the touch-target minimum: compact header actions. */
   sm: "min-h-11 px-[18px] text-[15px]",
 } as const;
