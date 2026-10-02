@@ -45,7 +45,13 @@ export default async function LangLayout({
       className={`${fontVariables} h-full antialiased`}
       suppressHydrationWarning
     >
-      <body className="flex min-h-full flex-col font-sans">
+      {/* suppressHydrationWarning: extensions such as Grammarly add
+          attributes to <body> before React hydrates. It covers only this
+          element's own attributes, not its children. */}
+      <body
+        className="flex min-h-full flex-col font-sans"
+        suppressHydrationWarning
+      >
         {/* Runs while the HTML is parsed, before any content is painted.
             First in <body> rather than in <head>: Cypress (and some browser
             extensions) inject nodes into <head>, and React failed to hydrate it. */}
