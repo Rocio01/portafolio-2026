@@ -80,4 +80,47 @@ describe("motion", () => {
       expect(durations).to.include(450);
     });
   });
+
+  it("animates the mobile menu open and closed", () => {
+    cy.viewport(390, 844);
+    cy.visit("/en");
+    cy.get('button[aria-label^="Switch to"]').should("be.visible");
+
+    cy.get('button[aria-label="Open menu"]').click();
+    cy.get(".menu-panel")
+      .should("have.attr", "data-state", "open")
+      .and("have.css", "animation-name", "menu-panel-open");
+    // Halfway through, the panel is partly open: it grows, it does not jump.
+    cy.get(".menu-panel").then(($panel) => {
+      const panel = $panel.get(0)!;
+      const [animation] = panel.getAnimations();
+      expect(animation, "open animation").to.not.equal(undefined);
+      animation!.pause();
+      animation!.currentTime = 125;
+      const halfway = panel.getBoundingClientRect().height;
+      animation!.finish();
+      const full = panel.getBoundingClientRect().height;
+      expect(halfway).to.be.greaterThan(0).and.lessThan(full);
+    });
+
+    cy.get('button[aria-label="Close menu"]').click();
+    cy.get(".menu-panel")
+      .should("have.attr", "data-state", "closing")
+      .and("have.attr", "inert");
+    cy.get(".menu-panel").should("not.exist");
+  });
+
+  it("opens and closes the mobile menu at once with prefers-reduced-motion", () => {
+    emulateReducedMotion("reduce");
+    cy.viewport(390, 844);
+    cy.visit("/en");
+    cy.get('button[aria-label^="Switch to"]').should("be.visible");
+    cy.get('button[aria-label="Open menu"]').click();
+    cy.get(".menu-panel").should("have.css", "animation-name", "none");
+    cy.get('button[aria-label="Close menu"]').click();
+    // Checked once, without retrying: no 200ms closing state.
+    cy.get("body").then(($body) => {
+      expect($body.find(".menu-panel")).to.have.length(0);
+    });
+  });
 });

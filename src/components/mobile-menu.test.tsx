@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it } from "vitest";
 
@@ -41,8 +41,15 @@ describe("MobileMenu", () => {
   it("closes after choosing a link", async () => {
     renderMenu();
     await userEvent.click(screen.getByRole("button", { name: "Open menu" }));
+    const nav = screen.getByRole("navigation");
     await userEvent.click(screen.getByRole("link", { name: "Projects" }));
-    expect(screen.queryByRole("navigation")).not.toBeInTheDocument();
+
+    // While it animates closed, its links can no longer be reached...
+    expect(nav.parentElement).toHaveAttribute("inert");
+    // ...and then it is removed.
+    await waitFor(() =>
+      expect(screen.queryByRole("navigation")).not.toBeInTheDocument(),
+    );
   });
 
   it("closes on Escape and returns focus to the button", async () => {
@@ -51,7 +58,21 @@ describe("MobileMenu", () => {
     await userEvent.tab();
     await userEvent.keyboard("{Escape}");
 
-    expect(screen.queryByRole("navigation")).not.toBeInTheDocument();
     expect(screen.getByRole("button", { name: "Open menu" })).toHaveFocus();
+    await waitFor(() =>
+      expect(screen.queryByRole("navigation")).not.toBeInTheDocument(),
+    );
+  });
+
+  it("opens again if pressed while it is closing", async () => {
+    renderMenu();
+    const user = userEvent.setup();
+    await user.click(screen.getByRole("button", { name: "Open menu" }));
+    await user.click(screen.getByRole("button", { name: "Close menu" }));
+    await user.click(screen.getByRole("button", { name: "Open menu" }));
+
+    const nav = screen.getByRole("navigation", { name: "Main" });
+    expect(nav.parentElement).not.toHaveAttribute("inert");
+    expect(nav.parentElement).toHaveAttribute("data-state", "open");
   });
 });
