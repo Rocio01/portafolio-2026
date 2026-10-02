@@ -31,9 +31,9 @@ export const PROJECTS: readonly Project[] = [
     },
     stack: ["Vite", "React", "TypeScript", "Cloudflare Workers"],
     image: {
-      src: "/projects/attention-game.png",
-      width: 1280,
-      height: 800,
+      src: "/projects/attention-game.webp",
+      width: 1040,
+      height: 650,
       alt: {
         en: "Start screen of the attention training game, with a large Play button.",
         es: "Pantalla de inicio del juego de entrenamiento de atención, con un botón grande de Jugar.",
