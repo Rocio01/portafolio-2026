@@ -35,4 +35,11 @@ export const es: Dictionary = {
     label: "01 — Experiencia",
     title: "Trabajo destacado",
   },
+  projects: {
+    label: "02 — Proyectos",
+    title: "Lo que he construido",
+    demo: "Ver demo",
+    code: "Código",
+    soon: "Próximamente",
+  },
 };
