@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 
 import { isLocale, locales } from "@/i18n/config";
 import { env } from "@/lib/env";
+import { siteMetadata } from "@/lib/site-metadata";
 import { fontVariables } from "@/theme/fonts";
 import { themeInitScript } from "@/theme/theme";
 
@@ -14,33 +15,11 @@ export function generateStaticParams() {
 }
 export const dynamicParams = false;
 
-// Copy from docs/content.md (hero.label, hero.intro). Per-language titles and
-// descriptions, and hreflang alternates, come in backlog item 18.
-const siteName = "Zulma Rocio Martinez";
-const description =
-  "Frontend developer with 4+ years of production experience, now open to remote frontend and full-stack roles.";
-
 export async function generateMetadata({
   params,
 }: LayoutProps<"/[lang]">): Promise<Metadata> {
   const { lang } = await params;
-  return {
-    metadataBase: new URL(env.NEXT_PUBLIC_SITE_URL),
-    title: {
-      default: `${siteName} · Frontend Developer`,
-      template: `%s | ${siteName}`,
-    },
-    description,
-    openGraph: {
-      type: "website",
-      siteName,
-      title: `${siteName} · Frontend Developer`,
-      description,
-      url: `/${lang}`,
-    },
-    twitter: { card: "summary_large_image" },
-    alternates: { canonical: `/${lang}` },
-  };
+  return siteMetadata({ siteUrl: env.NEXT_PUBLIC_SITE_URL, path: `/${lang}` });
 }
 
 export default async function LangLayout({
