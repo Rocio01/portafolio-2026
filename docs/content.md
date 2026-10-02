@@ -84,7 +84,7 @@ React · TypeScript · Next.js · TanStack Query · Zustand · Zod · Auth0 · T
 ### Attention training game
 
 - Stack: Vite · React · TypeScript · Cloudflare Workers
-- Image: `/projects/attention-game.png` (start screen, 1280×800) · Demo: https://juego-atencion.zrmartinezg.workers.dev/ · Code: https://github.com/Rocio01/juego-atencion
+- Image: `/projects/attention-game.webp` (start screen, 1040×650 WebP: twice the card's 520px width) · Demo: https://juego-atencion.zrmartinezg.workers.dev/ · Code: https://github.com/Rocio01/juego-atencion
 
 | Key   | EN                                                                                                                                                                             | ES                                                                                                                                                                                                                  |
 | ----- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
