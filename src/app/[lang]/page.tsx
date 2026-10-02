@@ -23,11 +23,10 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
       <main className="flex-1">
         <Hero t={t} />
         <StackStrip t={t} />
-        {/* The hero and the strip are in the first screen, so they do not
-            wait for a scroll reveal; the hero has its own CSS entrance. */}
-        <Reveal>
-          <Experience locale={lang} t={t} />
-        </Reveal>
+        {/* The hero, the strip and the top of Experience can be in the first
+            screen, so they do not wait for JavaScript to reveal them; the
+            hero has its own CSS entrance. */}
+        <Experience locale={lang} t={t} />
         <Reveal>
           <Projects locale={lang} t={t} />
         </Reveal>

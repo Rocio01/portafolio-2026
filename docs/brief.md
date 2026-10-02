@@ -25,7 +25,7 @@ Get interviews for remote frontend and full-stack roles, and give freelance clie
 - English and Spanish at `/en` and `/es`, with a language switch.
 - Light and dark theme, with a theme switch.
 - Responsive from 390px up.
-- Purposeful motion: a staggered hero entrance and sections that reveal on scroll, built with Motion; nothing moves when the visitor prefers reduced motion.
+- Purposeful motion: a staggered hero entrance (CSS, so it plays with the first paint) and sections that reveal on scroll (Motion); nothing moves when the visitor prefers reduced motion.
 - Deployed on Cloudflare Pages with preview URLs per pull request.
 
 ## Out of scope (v1)
