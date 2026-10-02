@@ -2,6 +2,7 @@ import { ButtonLink } from "@/components/button";
 import { Container } from "@/components/container";
 import { LanguageToggle } from "@/components/language-toggle";
 import { MobileMenu } from "@/components/mobile-menu";
+import { StickyHeader } from "@/components/sticky-header";
 import { ThemeToggle } from "@/components/theme-toggle";
 import type { Locale } from "@/i18n/config";
 import type { Dictionary } from "@/i18n/en";
@@ -9,7 +10,10 @@ import type { Dictionary } from "@/i18n/en";
 /**
  * Desktop (768px and up): name, section links, theme, language, Contact.
  * Mobile: name, theme, language and a menu button that opens the links.
- * A server component: only the theme toggle and the menu ship JavaScript.
+ * Sticky: it stays at the top while the page scrolls, on a translucent page
+ * background. On desktop its bottom border appears once the page scrolls.
+ * A server component: only the sticky wrapper, the theme toggle and the menu
+ * ship JavaScript.
  */
 export function Header({ locale, t }: { locale: Locale; t: Dictionary }) {
   const links = [
@@ -20,7 +24,7 @@ export function Header({ locale, t }: { locale: Locale; t: Dictionary }) {
   const contact = { href: "#contact", label: t.nav.contact };
 
   return (
-    <header className="border-b border-border md:border-b-0">
+    <StickyHeader className="z-40 border-b border-border bg-bg/85 backdrop-blur-md transition-colors md:border-transparent md:data-[scrolled=true]:border-border">
       <Container className="flex flex-wrap items-center gap-1 py-4 md:gap-2 md:py-7">
         {/* The design's header shows the short name; 16px under 360px so the
             name and the three controls stay on one row. */}
@@ -61,6 +65,6 @@ export function Header({ locale, t }: { locale: Locale; t: Dictionary }) {
           navLabel={t.nav.label}
         />
       </Container>
-    </header>
+    </StickyHeader>
   );
 }

@@ -39,6 +39,16 @@
     font-weight: 600;
   }
 
+  /* The header is sticky (77px tall on mobile, 101px from 768px), so
+     anchor jumps stop just below it instead of hiding the section title. */
+  section[id] {
+    scroll-margin-top: 5rem;
+
+    @media (width >= 48rem) {
+      scroll-margin-top: 6.5rem;
+    }
+  }
+
   /* Tailwind v4's preflight gives buttons the default arrow cursor; links
      already get the pointer. Every enabled button here acts like a link
      (theme switch, mobile menu), so it gets the pointer too. */
