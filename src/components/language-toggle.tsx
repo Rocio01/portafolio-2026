@@ -4,6 +4,9 @@ import { otherLocale, type Locale } from "@/i18n/config";
  * "EN / ES": the current language as text, the other one as a link to the
  * same page in that language. A plain <a>, not next/link: each language has
  * its own root layout, so switching is a full page load anyway.
+ *
+ * Under 360px the header has no room for the whole toggle, so the current
+ * language and the slash are hidden and only the link to the other one stays.
  */
 export function LanguageToggle({
   locale,
@@ -17,10 +20,13 @@ export function LanguageToggle({
 
   return (
     <div className="flex items-center font-mono text-[13px]">
-      <span aria-current="true" className="px-2 font-medium text-ink">
+      <span
+        aria-current="true"
+        className="px-2 font-medium text-ink max-[359px]:hidden"
+      >
         {locale.toUpperCase()}
       </span>
-      <span aria-hidden="true" className="text-dash">
+      <span aria-hidden="true" className="text-dash max-[359px]:hidden">
         /
       </span>
       <a
