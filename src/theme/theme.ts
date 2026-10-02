@@ -26,22 +26,41 @@ export function getResolvedTheme(): Theme {
   return window.matchMedia(DARK_QUERY).matches ? "dark" : "light";
 }
 
+/** Matches the 450ms in globals.css. */
+export const THEME_TRANSITION_MS = 450;
+
+function prefersReducedMotion() {
+  return (
+    typeof window.matchMedia === "function" &&
+    window.matchMedia("(prefers-reduced-motion: reduce)").matches
+  );
+}
+
 /**
- * Shows the theme now and remembers it for the next visit. Where the browser
- * supports view transitions, the change cross-fades (see globals.css).
+ * Shows the theme now and remembers it for the next visit. The change
+ * animates over THEME_TRANSITION_MS (see globals.css): a cross-fade where the
+ * browser supports view transitions, otherwise a color transition. It is
+ * instant for visitors who prefer reduced motion.
  */
 export function setTheme(theme: Theme) {
+  const root = document.documentElement;
   const apply = () => {
-    document.documentElement.dataset.theme = theme;
+    root.dataset.theme = theme;
   };
-  const canCrossFade =
-    typeof document.startViewTransition === "function" &&
-    !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  if (canCrossFade) {
+
+  if (prefersReducedMotion()) {
+    apply();
+  } else if (typeof document.startViewTransition === "function") {
     document.startViewTransition(apply);
   } else {
+    root.classList.add("theme-transition");
     apply();
+    window.setTimeout(
+      () => root.classList.remove("theme-transition"),
+      THEME_TRANSITION_MS,
+    );
   }
+
   try {
     localStorage.setItem(THEME_STORAGE_KEY, theme);
   } catch {

@@ -5,6 +5,7 @@ import {
   getStoredTheme,
   setTheme,
   THEME_STORAGE_KEY,
+  THEME_TRANSITION_MS,
   themeInitScript,
 } from "./theme";
 
@@ -23,6 +24,7 @@ function mockSystemTheme(dark: boolean) {
 beforeEach(() => {
   localStorage.clear();
   delete document.documentElement.dataset.theme;
+  document.documentElement.classList.remove("theme-transition");
 });
 
 afterEach(() => {
@@ -83,7 +85,7 @@ describe("setTheme", () => {
     expect(document.documentElement.dataset.theme).toBe("light");
   });
 
-  describe("cross-fade", () => {
+  describe("animation", () => {
     afterEach(() => {
       // jsdom has no startViewTransition; remove the stub.
       delete (document as Partial<Document>).startViewTransition;
@@ -122,6 +124,26 @@ describe("setTheme", () => {
       setTheme("dark");
       expect(start).not.toHaveBeenCalled();
       expect(document.documentElement.dataset.theme).toBe("dark");
+    });
+
+    it("transitions the colors when view transitions are not supported", () => {
+      vi.useFakeTimers();
+      stubReducedMotion(false);
+      const root = document.documentElement;
+
+      setTheme("dark");
+      expect(root.dataset.theme).toBe("dark");
+      expect(root).toHaveClass("theme-transition");
+
+      vi.advanceTimersByTime(THEME_TRANSITION_MS);
+      expect(root).not.toHaveClass("theme-transition");
+      vi.useRealTimers();
+    });
+
+    it("skips the color transition for reduced motion", () => {
+      stubReducedMotion(true);
+      setTheme("dark");
+      expect(document.documentElement).not.toHaveClass("theme-transition");
     });
   });
 });

@@ -11,7 +11,21 @@ export type MenuLink = { href: string; label: string };
  * rendered after the header row and wraps onto its own line (basis-full), so
  * it pushes the page down, as in the design. It closes when a link is chosen
  * and on Escape; Escape also returns focus to the button.
+ *
+ * The panel grows open and shrinks closed (.menu-panel in globals.css). On
+ * close it stays mounted for CLOSE_MS, inert, so the animation can play;
+ * with reduced motion it closes at once.
  */
+/** Matches the closing animation in globals.css. */
+const CLOSE_MS = 200;
+
+function prefersReducedMotion() {
+  return (
+    typeof window.matchMedia === "function" &&
+    window.matchMedia("(prefers-reduced-motion: reduce)").matches
+  );
+}
+
 export function MobileMenu({
   links,
   contact,
@@ -25,14 +39,26 @@ export function MobileMenu({
   navLabel: string;
 }) {
   const [open, setOpen] = useState(false);
+  const [closing, setClosing] = useState(false);
   const buttonRef = useRef<HTMLButtonElement>(null);
   const panelId = useId();
+
+  function close() {
+    setOpen(false);
+    setClosing(!prefersReducedMotion());
+  }
+
+  function openMenu() {
+    setClosing(false);
+    setOpen(true);
+  }
 
   useEffect(() => {
     if (!open) return;
     function onKeyDown(event: KeyboardEvent) {
       if (event.key === "Escape") {
         setOpen(false);
+        setClosing(!prefersReducedMotion());
         buttonRef.current?.focus();
       }
     }
@@ -40,7 +66,11 @@ export function MobileMenu({
     return () => document.removeEventListener("keydown", onKeyDown);
   }, [open]);
 
-  const close = () => setOpen(false);
+  useEffect(() => {
+    if (!closing) return;
+    const timer = window.setTimeout(() => setClosing(false), CLOSE_MS);
+    return () => window.clearTimeout(timer);
+  }, [closing]);
 
   return (
     <>
@@ -50,39 +80,47 @@ export function MobileMenu({
         aria-expanded={open}
         aria-controls={panelId}
         aria-label={open ? labels.close : labels.open}
-        onClick={() => setOpen(!open)}
+        onClick={open ? close : openMenu}
         className="inline-flex size-11 items-center justify-center rounded-xl border border-border bg-bg text-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-link md:hidden"
       >
         {open ? <CloseIcon /> : <MenuIcon />}
       </button>
 
-      {open && (
-        <nav
-          id={panelId}
-          aria-label={navLabel}
-          className="-mx-5 flex basis-[calc(100%+2.5rem)] flex-col border-t border-border bg-surface px-5 pt-2 pb-5 md:hidden"
+      {(open || closing) && (
+        <div
+          data-state={open ? "open" : "closing"}
+          inert={!open}
+          className="menu-panel -mx-5 basis-[calc(100%+2.5rem)] md:hidden"
         >
-          {links.map((link) => (
-            <a
-              key={link.href}
-              href={link.href}
-              onClick={close}
-              className="flex min-h-[52px] items-center border-b border-divider text-lg text-ink no-underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-link"
-            >
-              {link.label}
-            </a>
-          ))}
-          <a
-            href={contact.href}
-            onClick={close}
-            className={buttonClasses({
-              variant: "inverted",
-              className: "mt-4",
-            })}
+          <nav
+            id={panelId}
+            aria-label={navLabel}
+            className="min-h-0 overflow-hidden"
           >
-            {contact.label}
-          </a>
-        </nav>
+            <div className="flex flex-col border-t border-border bg-surface px-5 pt-2 pb-5">
+              {links.map((link) => (
+                <a
+                  key={link.href}
+                  href={link.href}
+                  onClick={close}
+                  className="flex min-h-[52px] items-center border-b border-divider text-lg text-ink no-underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-link"
+                >
+                  {link.label}
+                </a>
+              ))}
+              <a
+                href={contact.href}
+                onClick={close}
+                className={buttonClasses({
+                  variant: "inverted",
+                  className: "mt-4",
+                })}
+              >
+                {contact.label}
+              </a>
+            </div>
+          </nav>
+        </div>
       )}
     </>
   );

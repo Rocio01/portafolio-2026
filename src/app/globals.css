@@ -79,8 +79,63 @@
   }
 }
 
-/* Theme switch: setTheme() runs inside a view transition, and the browser's
-   default cross-fade animates it. Turned off for reduced motion. */
+/*
+ * Theme switch, 450ms with an ease-in-out curve (setTheme in theme.ts):
+ * - with view transitions, the old and new snapshots of the page cross-fade;
+ * - without them, setTheme adds .theme-transition to <html> for the switch
+ *   and the colors themselves transition.
+ * Both are off for reduced motion.
+ */
+@media (prefers-reduced-motion: no-preference) {
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation-duration: 450ms;
+    animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* !important: wins over each element's own transition for those 450ms. */
+  .theme-transition,
+  .theme-transition *,
+  .theme-transition *::before,
+  .theme-transition *::after {
+    transition:
+      color 450ms cubic-bezier(0.4, 0, 0.2, 1),
+      background-color 450ms cubic-bezier(0.4, 0, 0.2, 1),
+      border-color 450ms cubic-bezier(0.4, 0, 0.2, 1),
+      outline-color 450ms cubic-bezier(0.4, 0, 0.2, 1),
+      fill 450ms cubic-bezier(0.4, 0, 0.2, 1),
+      stroke 450ms cubic-bezier(0.4, 0, 0.2, 1) !important;
+  }
+}
+
+/*
+ * Mobile menu panel (MobileMenu): a one-row grid whose row grows from 0fr to
+ * 1fr, so the panel pushes the page down smoothly instead of jumping. It
+ * opens in 250ms and closes in 200ms (CLOSE_MS in mobile-menu.tsx).
+ */
+.menu-panel {
+  display: grid;
+  grid-template-rows: 1fr;
+}
+
+@keyframes menu-panel-open {
+  from {
+    grid-template-rows: 0fr;
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .menu-panel[data-state="open"] {
+    animation: menu-panel-open 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .menu-panel[data-state="closing"] {
+    animation: menu-panel-open 200ms cubic-bezier(0.4, 0, 0.2, 1) reverse
+      forwards;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   ::view-transition-group(*),
   ::view-transition-old(*),
