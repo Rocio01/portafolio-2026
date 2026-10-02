@@ -4,6 +4,8 @@ Personal portfolio of Zulma Rocio Martinez, frontend developer. A static
 Next.js site in English and Spanish, with light and dark themes, deployed on
 Cloudflare Pages.
 
+**Live:** https://portafolio-2026.pages.dev
+
 Built with Next.js (App Router, static export), TypeScript (strict), Tailwind
 CSS, Vitest, Cypress and GitHub Actions. Created from my
 [Next.js template](https://github.com/Rocio01/nextjs-template).
@@ -91,21 +93,37 @@ Dark mode follows the operating system setting (`prefers-color-scheme`).
 `globals.css` maps the variables to Tailwind utilities such as `bg-bg`,
 `text-fg` and `bg-accent`. Use these utilities instead of hard-coded colors.
 
-## Deploy to Cloudflare Pages
+## Deploy
 
-1. Push the repository to GitHub.
-2. In the Cloudflare dashboard, go to **Workers & Pages > Create > Pages >
-   Connect to Git**, and select the repository.
-3. Set the build settings:
-   - **Framework preset:** None
-   - **Build command:** `npm run build`
-   - **Build output directory:** `out`
-4. Under **Environment variables**, add `NEXT_PUBLIC_SITE_URL` with your
-   production URL (for example `https://my-site.pages.dev`).
-5. Click **Save and Deploy**.
+Production: https://portafolio-2026.pages.dev (Cloudflare Pages project
+`portafolio-2026`, connected to this repository with the Git integration).
 
-Cloudflare reads the Node.js version from `.nvmrc`. Each push to `main`
-deploys to production. Each pull request gets a preview URL.
+How a change reaches production:
+
+1. Open a pull request. CI runs `verify` and `e2e`, and Cloudflare builds a
+   preview and comments its URL on the pull request.
+2. `main` is protected by a ruleset: changes arrive only through pull
+   requests, and `verify` and `e2e` must pass before the merge button works.
+   Force pushes and deleting `main` are blocked.
+3. Merging to `main` deploys to production.
+
+Cloudflare Pages settings:
+
+| Setting                | Value                               |
+| ---------------------- | ----------------------------------- |
+| Production branch      | `main`                              |
+| Framework preset       | None                                |
+| Build command          | `npm run build`                     |
+| Build output directory | `out`                               |
+| `NEXT_PUBLIC_SITE_URL` | `https://portafolio-2026.pages.dev` |
+
+Cloudflare reads the Node.js version from `.nvmrc`. `NEXT_PUBLIC_SITE_URL` is
+read at build time: after changing it, retry the latest deployment. When a
+custom domain is connected (backlog item 22), set the variable to that domain.
+
+To create the project again: **Workers & Pages > Create application**, then
+the **"Looking to deploy Pages? Get started"** link at the bottom (the main
+flow creates a Worker), then **Import an existing Git repository**.
 
 Notes:
 
