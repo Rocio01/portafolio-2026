@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 
 import { env } from "@/lib/env";
 import { fontVariables } from "@/theme/fonts";
+import { themeInitScript } from "@/theme/theme";
 
 import "./globals.css";
 
@@ -31,8 +32,20 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" className={`${fontVariables} h-full antialiased`}>
-      <body className="flex min-h-full flex-col font-sans">{children}</body>
+    // suppressHydrationWarning: the inline script may add data-theme to <html>
+    // before React hydrates; React keeps the attribute instead of erroring.
+    <html
+      lang="en"
+      className={`${fontVariables} h-full antialiased`}
+      suppressHydrationWarning
+    >
+      <body className="flex min-h-full flex-col font-sans">
+        {/* Runs while the HTML is parsed, before any content is painted.
+            First in <body> rather than in <head>: Cypress (and some browser
+            extensions) inject nodes into <head>, and React failed to hydrate it. */}
+        <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
+        {children}
+      </body>
     </html>
   );
 }
