@@ -1,0 +1,43 @@
+/*
+ * Design tokens: the single source of truth for colors (values from CLAUDE.md).
+ * globals.css maps them to Tailwind utilities (bg-bg, text-ink, ...).
+ * Components use the utilities, never raw hex values.
+ *
+ * Dark mode follows the system setting for now. The theme switch (backlog
+ * item 5) adds a manual override on top of these same variables.
+ */
+:root {
+  --bg: #f3f4f1;
+  --ink: #17181c;
+  --text2: #3a3d45;
+  --muted: #5a5e68;
+  --border: #d9dad4;
+  --surface: #ffffff;
+  --divider: #ecece7;
+  --tag-bg: #eef1fb;
+  --tag-fg: #1f3fbf;
+  --link: #1f3fbf;
+  --accent: #2443c9; /* button fill */
+  --accent-text: #2443c9; /* labels */
+
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #111215;
+    --ink: #ecedef;
+    --text2: #b8bbc3;
+    --muted: #9094a0;
+    --border: #2a2c33;
+    --surface: #1a1c21;
+    --divider: #25272d;
+    --tag-bg: #1f2742;
+    --tag-fg: #a9b8ff;
+    --link: #9db0ff;
+    --accent: #2443c9;
+    --accent-text: #92a1e4;
+
+    color-scheme: dark;
+  }
+}

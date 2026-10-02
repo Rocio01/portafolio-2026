@@ -1,24 +1,40 @@
 @import "tailwindcss";
-@import "./tokens.css";
+@import "../theme/tokens.css";
 
-/* Expose tokens as Tailwind utilities. `inline` keeps the var() reference,
-   so changing a value in tokens.css (or in dark mode) needs no new utilities. */
+/* Expose tokens as Tailwind utilities (bg-bg, text-ink, border-border, ...).
+   `inline` makes each utility use var(--token) directly, so dark mode and the
+   theme switch only change the variables, never the utilities. The token
+   names differ from Tailwind's (--bg vs --color-bg) so no variable refers to
+   itself. */
 @theme inline {
-  --color-bg: var(--color-bg);
-  --color-fg: var(--color-fg);
-  --color-muted: var(--color-muted);
-  --color-border: var(--color-border);
-  --color-accent: var(--color-accent);
-  --color-accent-fg: var(--color-accent-fg);
-  --color-accent-hover: var(--color-accent-hover);
-  --color-surface: var(--color-surface);
-  --color-surface-hover: var(--color-surface-hover);
-  --color-focus: var(--color-focus);
-  --radius-md: var(--radius-md);
-  --font-sans: var(--font-inter);
+  --color-bg: var(--bg);
+  --color-ink: var(--ink);
+  --color-text2: var(--text2);
+  --color-muted: var(--muted);
+  --color-border: var(--border);
+  --color-surface: var(--surface);
+  --color-divider: var(--divider);
+  --color-tag-bg: var(--tag-bg);
+  --color-tag-fg: var(--tag-fg);
+  --color-link: var(--link);
+  --color-accent: var(--accent);
+  --color-accent-text: var(--accent-text);
+
+  --font-sans: var(--font-plex-sans);
+  --font-heading: var(--font-space-grotesk);
+  --font-mono: var(--font-jetbrains-mono);
 }
 
-body {
-  background: var(--color-bg);
-  color: var(--color-fg);
+@layer base {
+  body {
+    background: var(--bg);
+    color: var(--ink);
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-space-grotesk);
+    font-weight: 600;
+  }
 }

@@ -1,15 +1,9 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 
 import { env } from "@/lib/env";
+import { fontVariables } from "@/theme/fonts";
 
 import "./globals.css";
-
-// Downloaded at build time and self-hosted: no runtime request to Google.
-const inter = Inter({
-  variable: "--font-inter",
-  subsets: ["latin"],
-});
 
 // Copy from docs/content.md (hero.label, hero.intro). Per-language titles and
 // descriptions come with the i18n routes (backlog issue 18).
@@ -37,7 +31,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" className={`${inter.variable} h-full antialiased`}>
+    <html lang="en" className={`${fontVariables} h-full antialiased`}>
       <body className="flex min-h-full flex-col font-sans">{children}</body>
     </html>
   );
