@@ -26,9 +26,22 @@ export function getResolvedTheme(): Theme {
   return window.matchMedia(DARK_QUERY).matches ? "dark" : "light";
 }
 
-/** Shows the theme now and remembers it for the next visit. */
+/**
+ * Shows the theme now and remembers it for the next visit. Where the browser
+ * supports view transitions, the change cross-fades (see globals.css).
+ */
 export function setTheme(theme: Theme) {
-  document.documentElement.dataset.theme = theme;
+  const apply = () => {
+    document.documentElement.dataset.theme = theme;
+  };
+  const canCrossFade =
+    typeof document.startViewTransition === "function" &&
+    !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (canCrossFade) {
+    document.startViewTransition(apply);
+  } else {
+    apply();
+  }
   try {
     localStorage.setItem(THEME_STORAGE_KEY, theme);
   } catch {

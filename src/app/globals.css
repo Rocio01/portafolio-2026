@@ -39,3 +39,44 @@
     font-weight: 600;
   }
 }
+
+/*
+ * Hero entrance: label, headline, intro and buttons rise in one after
+ * another (--step × 120ms), 0.5s each. Plain CSS, so it starts with the
+ * first paint instead of waiting for JavaScript. The headline only moves:
+ * it is visible from the first frame, so the largest paint is not delayed.
+ * Nothing moves when the visitor prefers reduced motion.
+ */
+@keyframes hero-rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+}
+
+@keyframes hero-rise {
+  from {
+    transform: translateY(12px);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .hero-step {
+    animation: hero-rise-in 0.5s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+    animation-delay: calc(var(--step, 0) * 120ms);
+  }
+
+  .hero-step-headline {
+    animation-name: hero-rise;
+  }
+}
+
+/* Theme switch: setTheme() runs inside a view transition, and the browser's
+   default cross-fade animates it. Turned off for reduced motion. */
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none;
+  }
+}

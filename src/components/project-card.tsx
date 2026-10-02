@@ -27,7 +27,7 @@ export function ProjectCard({
   );
 
   return (
-    <article className="flex flex-col overflow-hidden rounded-[20px] border border-border bg-surface">
+    <article className="flex flex-col overflow-hidden rounded-[20px] border border-border bg-surface transition-transform duration-200 ease-out hover:-translate-y-1 motion-reduce:transition-none motion-reduce:hover:translate-y-0">
       <Image
         src={project.image.src}
         width={project.image.width}

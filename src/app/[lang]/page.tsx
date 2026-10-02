@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 
+import { Reveal } from "@/components/reveal";
 import { isLocale } from "@/i18n/config";
 import { getDictionary } from "@/i18n/get-dictionary";
 import { About } from "@/sections/about";
@@ -22,10 +23,20 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
       <main className="flex-1">
         <Hero t={t} />
         <StackStrip t={t} />
-        <Experience locale={lang} t={t} />
-        <Projects locale={lang} t={t} />
-        <About t={t} />
-        <Contact t={t} />
+        {/* The hero and the strip are in the first screen, so they do not
+            wait for a scroll reveal; the hero has its own CSS entrance. */}
+        <Reveal>
+          <Experience locale={lang} t={t} />
+        </Reveal>
+        <Reveal>
+          <Projects locale={lang} t={t} />
+        </Reveal>
+        <Reveal>
+          <About t={t} />
+        </Reveal>
+        <Reveal>
+          <Contact t={t} />
+        </Reveal>
       </main>
       <Footer t={t} />
     </>
