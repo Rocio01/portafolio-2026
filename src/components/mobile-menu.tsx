@@ -12,6 +12,10 @@ export type MenuLink = { href: string; label: string };
  * it pushes the page down, as in the design. It closes when a link is chosen
  * and on Escape; Escape also returns focus to the button.
  *
+ * The panel is at most the screen height minus the header (5rem) and
+ * scrolls inside, so on a short screen (a phone held sideways, a zoomed
+ * page) the sticky header never hides its last link.
+ *
  * The panel grows open and shrinks closed (.menu-panel in globals.css). On
  * close it stays mounted for CLOSE_MS, inert, so the animation can play;
  * with reduced motion it closes at once.
@@ -46,6 +50,14 @@ export function MobileMenu({
   function close() {
     setOpen(false);
     setClosing(!prefersReducedMotion());
+  }
+
+  // A chosen link closes the menu at once, without the closing animation:
+  // the browser jumps to the section right after the click, and a panel
+  // still collapsing would then pull the page up under the sticky header.
+  function closeForLink() {
+    setOpen(false);
+    setClosing(false);
   }
 
   function openMenu() {
@@ -95,14 +107,14 @@ export function MobileMenu({
           <nav
             id={panelId}
             aria-label={navLabel}
-            className="min-h-0 overflow-hidden"
+            className="max-h-[calc(100dvh-5rem)] min-h-0 overflow-y-auto"
           >
             <div className="flex flex-col border-t border-border bg-surface px-5 pt-2 pb-5">
               {links.map((link) => (
                 <a
                   key={link.href}
                   href={link.href}
-                  onClick={close}
+                  onClick={closeForLink}
                   className="flex min-h-[52px] items-center border-b border-divider text-lg text-ink no-underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-link"
                 >
                   {link.label}
@@ -110,7 +122,7 @@ export function MobileMenu({
               ))}
               <a
                 href={contact.href}
-                onClick={close}
+                onClick={closeForLink}
                 className={buttonClasses({
                   variant: "inverted",
                   className: "mt-4",

@@ -1,6 +1,6 @@
 // Backlog item 23: hero entrance, scroll reveals and reduced motion.
 
-const reveal = (section: string) => cy.get(`[data-reveal]:has(${section})`);
+const reveal = (section: string) => cy.get(`${section} [data-reveal]`);
 
 // The wrapper's transform on the first frame where the fade has started. No
 // retry after that point: by the end of the animation both cases are "none".

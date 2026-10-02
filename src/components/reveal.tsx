@@ -9,6 +9,9 @@ const loadFeatures = () =>
 
 /**
  * Fades and lifts its children in the first time they scroll into view.
+ * Use it inside a section, around its content, not around the section: the
+ * section's own box then never moves, so anchor jumps to it land exactly
+ * below the sticky header.
  *
  * - LazyMotion with `strict` and `m`: only the small `m` component is in the
  *   page bundle; the animation features load asynchronously.
