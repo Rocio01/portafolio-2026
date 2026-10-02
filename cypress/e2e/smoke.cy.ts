@@ -43,6 +43,15 @@ describe("smoke", () => {
     cy.request("/og.png").its("status").should("eq", 200);
   });
 
+  it("serves the resume the hero links to", () => {
+    cy.visit("/en");
+    cy.contains("a", "Download resume")
+      .invoke("attr", "href")
+      .then((href) => cy.request(String(href)))
+      .its("headers.content-type")
+      .should("include", "application/pdf");
+  });
+
   it("switches language from the toggle", () => {
     cy.visit("/en");
     cy.get('a[aria-label="Español"]').click();

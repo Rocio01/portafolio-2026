@@ -18,10 +18,9 @@ describe("Hero", () => {
     ).toBeInTheDocument();
     expect(screen.getByText(t.hero.label)).toBeInTheDocument();
     expect(screen.getByText(t.hero.intro)).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: t.hero.resume })).toHaveAttribute(
-      "href",
-      LINKS.resume,
-    );
+    const resume = screen.getByRole("link", { name: t.hero.resume });
+    expect(resume).toHaveAttribute("href", LINKS.resume);
+    expect(resume).toHaveAttribute("download");
   });
 
   it("links to GitHub and LinkedIn", () => {

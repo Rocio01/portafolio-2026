@@ -26,7 +26,11 @@ export function Hero({ t }: { t: Dictionary }) {
           {t.hero.intro}
         </p>
         <div className="flex flex-col gap-3 pt-2 md:flex-row md:flex-wrap">
-          <ButtonLink href={LINKS.resume} size="lg">
+          <ButtonLink
+            href={LINKS.resume}
+            download="Zulma_Rocio_Martinez_Resume.pdf"
+            size="lg"
+          >
             <DownloadIcon />
             {t.hero.resume}
           </ButtonLink>
