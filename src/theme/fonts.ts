@@ -8,7 +8,7 @@ import { IBM_Plex_Sans, JetBrains_Mono, Space_Grotesk } from "next/font/google";
 export const spaceGrotesk = Space_Grotesk({
   variable: "--font-space-grotesk",
   subsets: ["latin"],
-  weight: ["600"],
+  weight: ["600", "700"], // 600 headings, 700 the name in the header
 });
 
 export const plexSans = IBM_Plex_Sans({

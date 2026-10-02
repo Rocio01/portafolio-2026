@@ -44,7 +44,7 @@ export function ThemeToggle({ labels }: { labels: ThemeToggleLabels }) {
       type="button"
       onClick={() => setTheme(next)}
       aria-label={next === "dark" ? labels.toDark : labels.toLight}
-      className="inline-flex size-11 items-center justify-center rounded-full border border-border text-ink transition-colors hover:bg-surface focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-link"
+      className="inline-flex size-11 items-center justify-center rounded-full border border-border bg-surface text-ink transition-colors hover:bg-divider focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-link"
     >
       {next === "dark" ? <MoonIcon /> : <SunIcon />}
     </button>

@@ -4,26 +4,65 @@ const DARK_BG = "rgb(17, 18, 21)"; // --bg dark #111215
 
 const themeButton = (label: string) => cy.get(`button[aria-label="${label}"]`);
 
+function visitWithLanguages(path: string, languages: string[]) {
+  cy.visit(path, {
+    onBeforeLoad(win) {
+      Object.defineProperty(win.navigator, "languages", { value: languages });
+    },
+  });
+}
+
 describe("smoke", () => {
-  it("loads the home page", () => {
-    cy.visit("/");
+  it("loads the English page", () => {
+    cy.visit("/en");
+    cy.get("html").should("have.attr", "lang", "en");
     cy.get("h1").should("be.visible");
     cy.title().should("not.be.empty");
   });
 
+  it("redirects / to Spanish for a Spanish browser", () => {
+    visitWithLanguages("/", ["es-CO", "en"]);
+    cy.location("pathname").should("match", /^\/es\/?$/);
+    cy.get("html").should("have.attr", "lang", "es");
+  });
+
+  it("redirects / to English for any other browser language", () => {
+    visitWithLanguages("/", ["fr-FR"]);
+    cy.location("pathname").should("match", /^\/en\/?$/);
+  });
+
+  // cy.request fetches the HTML without running scripts, like the LinkedIn
+  // and WhatsApp crawlers that build link previews.
+  it("serves preview metadata on / for crawlers that skip the redirect", () => {
+    cy.request("/").then(({ body }) => {
+      const html = String(body);
+      expect(html).to.match(/<title>[^<]*Zulma Rocio Martinez/);
+      expect(html).to.match(/property="og:image" content="[^"]*\/og\.png"/);
+      expect(html).to.match(/name="description" content="[^"]+"/);
+    });
+    cy.request("/og.png").its("status").should("eq", 200);
+  });
+
+  it("switches language from the toggle", () => {
+    cy.visit("/en");
+    cy.get('a[aria-label="Español"]').click();
+    cy.location("pathname").should("match", /^\/es\/?$/);
+    cy.get('a[aria-label="English"]').should("be.visible");
+  });
+
   it("applies a stored theme before the app loads", () => {
-    cy.visit("/", {
+    cy.visit("/en", {
       onBeforeLoad(win) {
         win.localStorage.setItem("theme", "dark");
       },
     });
-    // Set by the inline script in <head>, before React or any bundle runs.
+    // Set by the inline script, before React or any bundle runs.
     cy.document().its("documentElement.dataset.theme").should("eq", "dark");
     cy.get("body").should("have.css", "background-color", DARK_BG);
   });
 
   it("switches the theme and remembers it after a reload", () => {
-    cy.visit("/", {
+    cy.visit("/en", {
       onBeforeLoad(win) {
         win.localStorage.setItem("theme", "light");
       },

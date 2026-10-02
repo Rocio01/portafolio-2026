@@ -2,25 +2,50 @@ import type { ComponentProps } from "react";
 
 import { cn } from "@/lib/cn";
 
+// Pill buttons from the design. Most "buttons" on the page are links (resume,
+// GitHub, LinkedIn, Contact), so the same styles come as <Button> and
+// <ButtonLink>; each keeps its native element and semantics.
 const variants = {
-  // Buttons get their final variants and sizes in backlog item 7.
-  primary: "bg-accent text-white hover:opacity-90",
-  secondary: "border border-border bg-surface text-ink hover:bg-divider",
+  /** Accent fill: the main action (Download resume). */
+  primary: "bg-accent text-white hover:brightness-110",
+  /** Border in the current text color: works on the page and on inverse cards. */
+  outline: "border-[1.5px] border-current hover:bg-ink/5",
+  /** Ink fill with page-colored text (header Contact; the email button inside an inverse card). */
+  inverted: "bg-ink text-bg hover:opacity-90",
 } as const;
 
 const sizes = {
-  sm: "h-8 px-3 text-sm",
-  md: "h-10 px-4 text-base",
+  /** 48px tall: the design's standard button. */
+  md: "min-h-12 px-[22px] text-base",
+  /** 44px tall, the touch-target minimum: compact header actions. */
+  sm: "min-h-11 px-[18px] text-[15px]",
 } as const;
 
-export type ButtonProps = ComponentProps<"button"> & {
-  variant?: keyof typeof variants;
-  size?: keyof typeof sizes;
-};
+export type ButtonVariant = keyof typeof variants;
+export type ButtonSize = keyof typeof sizes;
 
-export function Button({
+type StyleProps = { variant?: ButtonVariant; size?: ButtonSize };
+
+export function buttonClasses({
   variant = "primary",
   size = "md",
+  className,
+}: StyleProps & { className?: string }) {
+  return cn(
+    "inline-flex items-center justify-center gap-2 rounded-full font-medium no-underline transition",
+    "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-link",
+    "disabled:pointer-events-none disabled:opacity-50",
+    variants[variant],
+    sizes[size],
+    className,
+  );
+}
+
+export type ButtonProps = ComponentProps<"button"> & StyleProps;
+
+export function Button({
+  variant,
+  size,
   type = "button",
   className,
   ...props
@@ -28,15 +53,22 @@ export function Button({
   return (
     <button
       type={type}
-      className={cn(
-        "inline-flex items-center justify-center rounded-md font-medium transition-colors",
-        "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-link",
-        "disabled:pointer-events-none disabled:opacity-50",
-        variants[variant],
-        sizes[size],
-        className,
-      )}
+      className={buttonClasses({ variant, size, className })}
       {...props}
     />
+  );
+}
+
+export type ButtonLinkProps = ComponentProps<"a"> &
+  StyleProps & { href: string };
+
+export function ButtonLink({
+  variant,
+  size,
+  className,
+  ...props
+}: ButtonLinkProps) {
+  return (
+    <a className={buttonClasses({ variant, size, className })} {...props} />
   );
 }
