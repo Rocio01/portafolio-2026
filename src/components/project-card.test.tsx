@@ -57,4 +57,13 @@ describe("ProjectCard", () => {
       screen.queryByRole("link", { name: "Code" }),
     ).not.toBeInTheDocument();
   });
+
+  it("opens the demo and the code in a new tab", () => {
+    render(<ProjectCard project={project} locale="en" t={en} />);
+    for (const name of ["Live demo", "Code"]) {
+      const link = screen.getByRole("link", { name });
+      expect(link).toHaveAttribute("target", "_blank");
+      expect(link).toHaveAttribute("rel", "noopener noreferrer");
+    }
+  });
 });
