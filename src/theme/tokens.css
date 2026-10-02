@@ -43,11 +43,13 @@
  * Inverse scope: the contact card (ink background, page-colored text). Swaps
  * the tokens so everything inside keeps using bg-bg, text-ink, text-text2 and
  * Button variant="inverted", and gets the inverted colors. --text2 and
- * --muted take the design's "inverse muted" values.
+ * --muted take the design's "inverse muted" values. --link takes the other
+ * theme's value, so focus rings on the card keep their contrast.
  */
 .inverse {
   --bg: light-dark(#17181c, #ecedef);
   --ink: light-dark(#f3f4f1, #111215);
   --text2: light-dark(#c9cbd2, #4a4d57);
   --muted: light-dark(#c9cbd2, #4a4d57);
+  --link: light-dark(#9db0ff, #1f3fbf);
 }

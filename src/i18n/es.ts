@@ -42,4 +42,16 @@ export const es: Dictionary = {
     code: "Código",
     soon: "Próximamente",
   },
+  about: {
+    label: "03 — Sobre mí",
+    title: "Un camino distinto hacia el código",
+    p1: "Antes del software me formé como veterinaria y trabajé en producción avícola. Llegué al desarrollo con el programa full-stack remoto de Microverse, haciendo pair programming con desarrolladores de todo el mundo, y de ahí pasé directo a construir una plataforma en producción.",
+    p2: "Estoy acostumbrada a trabajar de forma autónoma y a hacerme cargo de las decisiones de principio a fin. Ahora busco un rol de frontend o full-stack en un equipo remoto. Español nativo, inglés avanzado.",
+  },
+  contact: {
+    title: "Trabajemos juntos.",
+    text: "Disponible para roles remotos de tiempo completo y proyectos freelance.",
+    email: "Escríbeme",
+  },
+  footer: "© 2026 Zulma Rocio Martinez",
 };

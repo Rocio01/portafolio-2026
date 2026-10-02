@@ -87,3 +87,38 @@ describe("smoke", () => {
     themeButton("Switch to light mode");
   });
 });
+
+describe("contact card", () => {
+  // innerText skips display:none, like the accessible name: it is the one
+  // label a screen reader reads at each width.
+  const emailLink = () => cy.get('#contact a[href^="mailto:"]');
+
+  it("shows 'Email me' on a phone and the address on desktop", () => {
+    cy.viewport(390, 844);
+    cy.visit("/en");
+    emailLink().invoke("prop", "innerText").should("eq", "Email me");
+
+    cy.viewport(1280, 900);
+    emailLink()
+      .invoke("prop", "innerText")
+      .should("eq", "zrmartinezg@gmail.com");
+  });
+
+  it("uses the Spanish label on a phone", () => {
+    cy.viewport(390, 844);
+    cy.visit("/es");
+    emailLink().invoke("prop", "innerText").should("eq", "Escríbeme");
+  });
+
+  it("draws the focus ring in the inverted link color", () => {
+    cy.visit("/en", {
+      onBeforeLoad(win) {
+        win.localStorage.setItem("theme", "light");
+      },
+    });
+    // --link inside .inverse in light mode: #9db0ff, readable on the dark card.
+    emailLink()
+      .focus()
+      .should("have.css", "outline-color", "rgb(157, 176, 255)");
+  });
+});
