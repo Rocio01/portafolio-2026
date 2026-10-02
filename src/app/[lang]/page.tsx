@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 
 import { isLocale } from "@/i18n/config";
 import { getDictionary } from "@/i18n/get-dictionary";
+import { About } from "@/sections/about";
 import { Experience } from "@/sections/experience";
 import { Header } from "@/sections/header";
 import { Hero } from "@/sections/hero";
@@ -21,6 +22,7 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
         <StackStrip t={t} />
         <Experience locale={lang} t={t} />
         <Projects locale={lang} t={t} />
+        <About t={t} />
       </main>
     </>
   );

@@ -42,6 +42,12 @@ export const en = {
     code: "Code",
     soon: "Coming soon",
   },
+  about: {
+    label: "03 — About",
+    title: "A different path into code",
+    p1: "Before software, I trained as a veterinarian and worked in poultry production. I moved into development through Microverse's remote full-stack program, pair programming with developers around the world, and went straight into building a production platform.",
+    p2: "I'm used to working on my own and owning decisions end to end. I'm now looking for a frontend or full-stack role on a remote team. Spanish native, advanced English.",
+  },
 };
 
 export type Dictionary = typeof en;
