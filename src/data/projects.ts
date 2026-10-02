@@ -1,4 +1,4 @@
-import type { Localized } from "@/data/experience";
+import type { Localized } from "@/i18n/config";
 
 // Copy from docs/content.md ("Projects"). To add a project, add one object
 // to PROJECTS; to announce one, add it to UPCOMING.

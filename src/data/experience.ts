@@ -1,8 +1,7 @@
-import type { Locale } from "@/i18n/config";
+import type { Localized } from "@/i18n/config";
 
 // Copy from docs/content.md ("Experience"). Text that changes with the
 // language is a Localized pair; tag names are the same in both.
-export type Localized = Record<Locale, string>;
 
 export type Job = {
   id: string;

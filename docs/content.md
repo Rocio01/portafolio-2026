@@ -84,12 +84,13 @@ React · TypeScript · Next.js · TanStack Query · Zustand · Zod · Auth0 · T
 ### Attention training game
 
 - Stack: Vite · React · TypeScript · Cloudflare Workers
-- Image: `[SCREENSHOT]` · Demo: `[LIVE LINK]` · Code: `[GITHUB REPO]`
+- Image: `/projects/attention-game.png` (start screen, 1280×800) · Demo: https://juego-atencion.zrmartinezg.workers.dev/ · Code: none until the repository `Rocio01/juego-atencion` is public
 
 | Key   | EN                                                                                                                                                                             | ES                                                                                                                                                                                                                  |
 | ----- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | title | Attention training game                                                                                                                                                        | Juego de entrenamiento de atención                                                                                                                                                                                  |
 | text  | A cognitive training web app I built for my parents. Difficulty adapts to each player with a staircase algorithm, and peripheral traffic-sign stimuli train divided attention. | Una app web de entrenamiento cognitivo que hice para mis papás. La dificultad se adapta a cada jugador con un algoritmo de escalera, y estímulos periféricos con señales de tránsito entrenan la atención dividida. |
+| alt   | Start screen of the attention training game, with a large Play button.                                                                                                         | Pantalla de inicio del juego de entrenamiento de atención, con un botón grande de Jugar.                                                                                                                            |
 
 ### Next project
 
