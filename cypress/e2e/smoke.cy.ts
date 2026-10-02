@@ -16,7 +16,7 @@ describe("smoke", () => {
   it("loads the English page", () => {
     cy.visit("/en");
     cy.get("html").should("have.attr", "lang", "en");
-    cy.get("h1").should("be.visible");
+    cy.get("h1").should("have.length", 1).and("be.visible");
     cy.title().should("not.be.empty");
   });
 
