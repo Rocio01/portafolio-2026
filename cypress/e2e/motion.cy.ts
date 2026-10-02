@@ -59,4 +59,25 @@ describe("motion", () => {
     transformOnceFading("#contact").should("eq", "none");
     reveal("#contact").should("have.css", "opacity", "1");
   });
+
+  it("cross-fades the theme switch over 450ms", () => {
+    cy.visit("/en", {
+      onBeforeLoad(win) {
+        win.localStorage.setItem("theme", "light");
+      },
+    });
+    cy.get('button[aria-label="Switch to dark mode"]').click();
+    // The browser's view-transition animations, on the page snapshots.
+    cy.document().should((doc) => {
+      const durations = doc
+        .getAnimations()
+        .filter((animation) =>
+          String(
+            (animation.effect as KeyframeEffect | null)?.pseudoElement,
+          ).startsWith("::view-transition"),
+        )
+        .map((animation) => animation.effect?.getTiming().duration);
+      expect(durations).to.include(450);
+    });
+  });
 });
