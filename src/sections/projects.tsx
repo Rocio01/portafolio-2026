@@ -1,4 +1,5 @@
 import { Container } from "@/components/container";
+import { Reveal } from "@/components/reveal";
 import { ProjectCard } from "@/components/project-card";
 import { SectionHeading } from "@/components/section-heading";
 import { UpcomingCard } from "@/components/upcoming-card";
@@ -14,31 +15,33 @@ import type { Dictionary } from "@/i18n/en";
 export function Projects({ locale, t }: { locale: Locale; t: Dictionary }) {
   return (
     <section id="projects" aria-labelledby="projects-title">
-      <Container className="flex flex-col gap-6 pt-14 pb-6 md:gap-9 md:pt-[72px] md:pb-10">
-        <SectionHeading
-          id="projects-title"
-          label={t.projects.label}
-          title={t.projects.title}
-        />
-        <div className="grid gap-6 md:grid-cols-2">
-          {PROJECTS.map((project) => (
-            <ProjectCard
-              key={project.id}
-              project={project}
-              locale={locale}
-              t={t}
-            />
-          ))}
-          {UPCOMING.map((project) => (
-            <UpcomingCard
-              key={project.id}
-              project={project}
-              locale={locale}
-              t={t}
-            />
-          ))}
-        </div>
-      </Container>
+      <Reveal>
+        <Container className="flex flex-col gap-6 pt-14 pb-6 md:gap-9 md:pt-[72px] md:pb-10">
+          <SectionHeading
+            id="projects-title"
+            label={t.projects.label}
+            title={t.projects.title}
+          />
+          <div className="grid gap-6 md:grid-cols-2">
+            {PROJECTS.map((project) => (
+              <ProjectCard
+                key={project.id}
+                project={project}
+                locale={locale}
+                t={t}
+              />
+            ))}
+            {UPCOMING.map((project) => (
+              <UpcomingCard
+                key={project.id}
+                project={project}
+                locale={locale}
+                t={t}
+              />
+            ))}
+          </div>
+        </Container>
+      </Reveal>
     </section>
   );
 }

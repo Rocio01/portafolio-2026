@@ -38,15 +38,21 @@ describe("MobileMenu", () => {
     expect(screen.getByRole("link", { name: "Contact" })).toBeInTheDocument();
   });
 
-  it("closes after choosing a link", async () => {
+  it("closes at once after choosing a link, so the jump lands right", async () => {
+    renderMenu();
+    await userEvent.click(screen.getByRole("button", { name: "Open menu" }));
+    await userEvent.click(screen.getByRole("link", { name: "Projects" }));
+    // No closing animation: the panel is gone before the browser scrolls.
+    expect(screen.queryByRole("navigation")).not.toBeInTheDocument();
+  });
+
+  it("animates closed from the button: inert while it shrinks, then removed", async () => {
     renderMenu();
     await userEvent.click(screen.getByRole("button", { name: "Open menu" }));
     const nav = screen.getByRole("navigation");
-    await userEvent.click(screen.getByRole("link", { name: "Projects" }));
+    await userEvent.click(screen.getByRole("button", { name: "Close menu" }));
 
-    // While it animates closed, its links can no longer be reached...
     expect(nav.parentElement).toHaveAttribute("inert");
-    // ...and then it is removed.
     await waitFor(() =>
       expect(screen.queryByRole("navigation")).not.toBeInTheDocument(),
     );

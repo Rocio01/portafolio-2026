@@ -39,13 +39,14 @@
     font-weight: 600;
   }
 
-  /* The header is sticky (77px tall on mobile, 101px from 768px), so
-     anchor jumps stop just below it instead of hiding the section title. */
-  section[id] {
-    scroll-margin-top: 5rem;
+  /* The header is sticky (77px tall on mobile, 101px from 768px). Scroll
+     padding keeps whatever the browser scrolls to (an anchor jump, or a
+     link or button reached with Tab or Shift+Tab) below it. */
+  html {
+    scroll-padding-top: 5rem;
 
     @media (width >= 48rem) {
-      scroll-margin-top: 6.5rem;
+      scroll-padding-top: 6.5rem;
     }
   }
 
