@@ -16,7 +16,7 @@ describe("smoke", () => {
   it("loads the English page", () => {
     cy.visit("/en");
     cy.get("html").should("have.attr", "lang", "en");
-    cy.get("h1").should("be.visible");
+    cy.get("h1").should("have.length", 1).and("be.visible");
     cy.title().should("not.be.empty");
   });
 
@@ -41,6 +41,15 @@ describe("smoke", () => {
       expect(html).to.match(/name="description" content="[^"]+"/);
     });
     cy.request("/og.png").its("status").should("eq", 200);
+  });
+
+  it("serves the resume the hero links to", () => {
+    cy.visit("/en");
+    cy.contains("a", "Download resume")
+      .invoke("attr", "href")
+      .then((href) => cy.request(String(href)))
+      .its("headers.content-type")
+      .should("include", "application/pdf");
   });
 
   it("switches language from the toggle", () => {

@@ -22,5 +22,10 @@ export const es: Dictionary = {
   },
   hero: {
     label: "Desarrolladora Frontend · React · TypeScript · Next.js",
+    title:
+      "Construyo y lanzo aplicaciones web en producción, desde la arquitectura hasta el despliegue.",
+    intro:
+      "Desarrolladora frontend con más de 4 años de experiencia en producción, abierta a roles remotos de frontend y full-stack.",
+    resume: "Descargar hoja de vida",
   },
 };

@@ -7,7 +7,7 @@ All copy for the site. Text in `[BRACKETS]` is still missing.
 - Email: zrmartinezg@gmail.com
 - GitHub: https://github.com/Rocio01
 - LinkedIn: https://www.linkedin.com/in/zulma-rocio-martinez/
-- Resume PDF: `[RESUME PDF]`
+- Resume PDF: `/resume.pdf` (`public/resume.pdf`)
 
 ## Header
 
