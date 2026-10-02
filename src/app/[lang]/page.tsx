@@ -2,8 +2,10 @@ import { notFound } from "next/navigation";
 
 import { isLocale } from "@/i18n/config";
 import { getDictionary } from "@/i18n/get-dictionary";
+import { Experience } from "@/sections/experience";
 import { Header } from "@/sections/header";
 import { Hero } from "@/sections/hero";
+import { Projects } from "@/sections/projects";
 import { StackStrip } from "@/sections/stack-strip";
 
 export default async function Home({ params }: PageProps<"/[lang]">) {
@@ -17,6 +19,8 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
       <main className="flex-1">
         <Hero t={t} />
         <StackStrip t={t} />
+        <Experience locale={lang} t={t} />
+        <Projects locale={lang} t={t} />
       </main>
     </>
   );

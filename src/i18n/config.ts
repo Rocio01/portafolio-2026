@@ -2,6 +2,9 @@ export const locales = ["en", "es"] as const;
 
 export type Locale = (typeof locales)[number];
 
+/** One string per language, for copy that lives in src/data. */
+export type Localized = Record<Locale, string>;
+
 export const defaultLocale: Locale = "en";
 
 export function isLocale(value: string): value is Locale {
