@@ -3,7 +3,9 @@ import { notFound } from "next/navigation";
 import { isLocale } from "@/i18n/config";
 import { getDictionary } from "@/i18n/get-dictionary";
 import { About } from "@/sections/about";
+import { Contact } from "@/sections/contact";
 import { Experience } from "@/sections/experience";
+import { Footer } from "@/sections/footer";
 import { Header } from "@/sections/header";
 import { Hero } from "@/sections/hero";
 import { Projects } from "@/sections/projects";
@@ -23,7 +25,9 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
         <Experience locale={lang} t={t} />
         <Projects locale={lang} t={t} />
         <About t={t} />
+        <Contact t={t} />
       </main>
+      <Footer t={t} />
     </>
   );
 }

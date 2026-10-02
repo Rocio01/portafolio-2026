@@ -87,3 +87,20 @@ describe("smoke", () => {
     themeButton("Switch to light mode");
   });
 });
+
+describe("contact card", () => {
+  it("shows 'Email me' on a phone and the address on desktop", () => {
+    cy.viewport(390, 844);
+    cy.visit("/en");
+    cy.get('#contact a[href^="mailto:"]').within(() => {
+      cy.contains("Email me").should("be.visible");
+      cy.contains("zrmartinezg@gmail.com").should("not.be.visible");
+    });
+
+    cy.viewport(1280, 900);
+    cy.get('#contact a[href^="mailto:"]').within(() => {
+      cy.contains("Email me").should("not.be.visible");
+      cy.contains("zrmartinezg@gmail.com").should("be.visible");
+    });
+  });
+});

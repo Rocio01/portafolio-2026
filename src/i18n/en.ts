@@ -48,6 +48,12 @@ export const en = {
     p1: "Before software, I trained as a veterinarian and worked in poultry production. I moved into development through Microverse's remote full-stack program, pair programming with developers around the world, and went straight into building a production platform.",
     p2: "I'm used to working on my own and owning decisions end to end. I'm now looking for a frontend or full-stack role on a remote team. Spanish native, advanced English.",
   },
+  contact: {
+    title: "Let's work together.",
+    text: "Open to full-time remote roles and freelance projects.",
+    email: "Email me",
+  },
+  footer: "© 2026 Zulma Rocio Martinez",
 };
 
 export type Dictionary = typeof en;
