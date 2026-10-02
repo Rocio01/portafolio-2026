@@ -31,4 +31,8 @@ export const es: Dictionary = {
   stack: {
     label: "Tecnologías",
   },
+  work: {
+    label: "01 — Experiencia",
+    title: "Trabajo destacado",
+  },
 };

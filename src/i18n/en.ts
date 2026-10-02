@@ -31,6 +31,10 @@ export const en = {
     // Accessible name of the strip's <section>; not visible.
     label: "Tech stack",
   },
+  work: {
+    label: "01 — Experience",
+    title: "Selected work",
+  },
 };
 
 export type Dictionary = typeof en;
