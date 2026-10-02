@@ -40,7 +40,7 @@ export const PROJECTS: readonly Project[] = [
       },
     },
     demo: "https://juego-atencion.zrmartinezg.workers.dev/",
-    // The repository is private; add `code` when it is public.
+    code: "https://github.com/Rocio01/juego-atencion",
   },
 ];
 

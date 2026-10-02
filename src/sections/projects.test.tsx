@@ -28,4 +28,17 @@ describe("Projects", () => {
     render(<Projects locale="en" t={en} />);
     expect(screen.queryByText(en.projects.soon)).not.toBeInTheDocument();
   });
+
+  it("links the attention game's demo and public repository", () => {
+    render(<Projects locale="en" t={en} />);
+    expect(
+      screen.getByRole("link", { name: en.projects.demo }),
+    ).toHaveAttribute(
+      "href",
+      "https://juego-atencion.zrmartinezg.workers.dev/",
+    );
+    expect(
+      screen.getByRole("link", { name: en.projects.code }),
+    ).toHaveAttribute("href", "https://github.com/Rocio01/juego-atencion");
+  });
 });
