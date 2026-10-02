@@ -7,25 +7,26 @@ import type { Dictionary } from "@/i18n/en";
  * Label, headline, intro and the three links. The page's only <h1>.
  * Mobile: resume full width, GitHub and LinkedIn side by side below it.
  * Desktop (768px and up): the three in one row.
+ * The entrance animation is CSS (hero-step in globals.css).
  */
 export function Hero({ t }: { t: Dictionary }) {
   return (
     <section id="top" aria-labelledby="hero-title">
       <Container className="flex flex-col gap-5 pt-14 pb-14 md:gap-7 md:pt-24 md:pb-[88px]">
-        <p className="font-mono text-xs text-accent-text md:text-sm md:tracking-[0.02em]">
+        <p className="hero-step font-mono text-xs text-accent-text [--step:0] md:text-sm md:tracking-[0.02em]">
           {t.hero.label}
         </p>
         {/* 40px on a phone, growing with the viewport up to 76px. */}
         <h1
           id="hero-title"
-          className="max-w-[960px] text-[40px] leading-[1.06] tracking-[-0.02em] md:text-[clamp(40px,7vw,76px)] md:leading-[1.04]"
+          className="hero-step hero-step-headline max-w-[960px] text-[40px] leading-[1.06] tracking-[-0.02em] [--step:1] md:text-[clamp(40px,7vw,76px)] md:leading-[1.04]"
         >
           {t.hero.title}
         </h1>
-        <p className="max-w-[680px] text-[17px] text-text2 md:text-[19px]">
+        <p className="hero-step max-w-[680px] text-[17px] text-text2 [--step:2] md:text-[19px]">
           {t.hero.intro}
         </p>
-        <div className="flex flex-col gap-3 pt-2 md:flex-row md:flex-wrap">
+        <div className="hero-step flex flex-col gap-3 pt-2 [--step:3] md:flex-row md:flex-wrap">
           <ButtonLink
             href={LINKS.resume}
             download="Zulma_Rocio_Martinez_Resume.pdf"

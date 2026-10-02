@@ -22,6 +22,9 @@ export async function generateMetadata({
   return siteMetadata({ siteUrl: env.NEXT_PUBLIC_SITE_URL, path: `/${lang}` });
 }
 
+const revealFallbackCss =
+  "[data-reveal]{opacity:1!important;transform:none!important}";
+
 export default async function LangLayout({
   children,
   params,
@@ -42,6 +45,10 @@ export default async function LangLayout({
             First in <body> rather than in <head>: Cypress (and some browser
             extensions) inject nodes into <head>, and React failed to hydrate it. */}
         <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
+        {/* Without JavaScript, scroll reveals never run: show their content. */}
+        <noscript>
+          <style>{revealFallbackCss}</style>
+        </noscript>
         {children}
       </body>
     </html>

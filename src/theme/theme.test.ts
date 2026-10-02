@@ -82,6 +82,48 @@ describe("setTheme", () => {
     setTheme("light");
     expect(document.documentElement.dataset.theme).toBe("light");
   });
+
+  describe("cross-fade", () => {
+    afterEach(() => {
+      // jsdom has no startViewTransition; remove the stub.
+      delete (document as Partial<Document>).startViewTransition;
+    });
+
+    function stubViewTransition() {
+      const start = vi.fn((update: () => void) => {
+        update();
+        return {} as ViewTransition;
+      });
+      document.startViewTransition =
+        start as unknown as Document["startViewTransition"];
+      return start;
+    }
+
+    function stubReducedMotion(reduce: boolean) {
+      vi.stubGlobal(
+        "matchMedia",
+        vi.fn((query: string) => ({
+          matches: reduce && query === "(prefers-reduced-motion: reduce)",
+        })),
+      );
+    }
+
+    it("switches the theme inside a view transition when supported", () => {
+      const start = stubViewTransition();
+      stubReducedMotion(false);
+      setTheme("dark");
+      expect(start).toHaveBeenCalledOnce();
+      expect(document.documentElement.dataset.theme).toBe("dark");
+    });
+
+    it("switches without a transition when the visitor prefers reduced motion", () => {
+      const start = stubViewTransition();
+      stubReducedMotion(true);
+      setTheme("dark");
+      expect(start).not.toHaveBeenCalled();
+      expect(document.documentElement.dataset.theme).toBe("dark");
+    });
+  });
 });
 
 describe("themeInitScript", () => {
