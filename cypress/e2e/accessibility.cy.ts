@@ -79,7 +79,7 @@ for (const lang of ["en", "es"]) {
 }
 
 // Keyboard: Tab reaches every link and button on the page, in reading
-// order, and each one shows a focus outline.
+// order, and each one shows a focus outline and a pointer cursor.
 const FOCUSABLE = "a[href], button:not([disabled])";
 
 function tabThroughPage() {
@@ -97,6 +97,7 @@ function tabThroughPage() {
         const focused = $focused.get(0)!;
         expect(focused, `tab stop ${index + 1}: ${label}`).to.equal(el);
         const style = getComputedStyle(focused);
+        expect(style.cursor, `${label} cursor`).to.equal("pointer");
         expect(style.outlineStyle, `${label} outline`).to.not.equal("none");
         expect(
           parseFloat(style.outlineWidth),
@@ -108,7 +109,7 @@ function tabThroughPage() {
 }
 
 for (const [name, width, height] of viewports) {
-  it(`reaches every link and button with Tab, with a visible focus (${name})`, () => {
+  it(`reaches every link and button with Tab, with a visible focus and a pointer cursor (${name})`, () => {
     cy.viewport(width, height);
     cy.visit("/en");
     cy.get('button[aria-label^="Switch to"]').should("be.visible");
