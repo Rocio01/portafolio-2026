@@ -2,7 +2,7 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it, vi } from "vitest";
 
-import { Button } from "./button";
+import { Button, ButtonLink } from "./button";
 
 describe("Button", () => {
   it("renders its label", () => {
@@ -31,5 +31,26 @@ describe("Button", () => {
     );
     await userEvent.click(screen.getByRole("button"));
     expect(onClick).not.toHaveBeenCalled();
+  });
+
+  it.each([
+    ["md", "min-h-12"],
+    ["sm", "min-h-11"],
+  ] as const)("size %s is at least 44px tall (%s)", (size, minHeight) => {
+    render(<Button size={size}>Save</Button>);
+    expect(screen.getByRole("button")).toHaveClass(minHeight);
+  });
+});
+
+describe("ButtonLink", () => {
+  it("is a real link with the button styles", () => {
+    render(
+      <ButtonLink href="https://github.com/Rocio01" variant="outline">
+        GitHub
+      </ButtonLink>,
+    );
+    const link = screen.getByRole("link", { name: "GitHub" });
+    expect(link).toHaveAttribute("href", "https://github.com/Rocio01");
+    expect(link).toHaveClass("rounded-full", "border-current", "min-h-12");
   });
 });
