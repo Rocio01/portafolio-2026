@@ -1,6 +1,13 @@
 // Copy from docs/content.md. es.ts must have exactly the same keys: its type
 // is Dictionary, so a missing or extra key is a TypeScript error.
 export const en = {
+  meta: {
+    // <title> and link previews (the description is hero.intro). role is
+    // the first part of hero.label; ogImageAlt describes the preview image.
+    role: "Frontend Developer",
+    ogImageAlt:
+      "Zulma Rocio Martinez, Frontend Developer: React, TypeScript, Next.js.",
+  },
   nav: {
     label: "Main",
     work: "Work",

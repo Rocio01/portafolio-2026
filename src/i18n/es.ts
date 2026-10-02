@@ -2,6 +2,11 @@ import type { Dictionary } from "./en";
 
 // Copy from docs/content.md.
 export const es: Dictionary = {
+  meta: {
+    role: "Desarrolladora Frontend",
+    ogImageAlt:
+      "Zulma Rocio Martinez, Desarrolladora Frontend: React, TypeScript, Next.js.",
+  },
   nav: {
     label: "Principal",
     work: "Experiencia",

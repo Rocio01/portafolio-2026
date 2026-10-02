@@ -1,48 +1,71 @@
 import type { Metadata } from "next";
 
-// Copy from docs/content.md (hero.label, hero.intro). Per-language titles and
-// descriptions, and hreflang alternates, come in backlog item 18.
+import { locales, type Locale } from "@/i18n/config";
+import { getDictionary } from "@/i18n/get-dictionary";
+
 export const SITE_NAME = "Zulma Rocio Martinez";
-const TITLE = `${SITE_NAME} · Frontend Developer`;
-const DESCRIPTION =
-  "Frontend developer with 4+ years of production experience, now open to remote frontend and full-stack roles.";
+
+// Open Graph locales (language_TERRITORY): English for an international
+// audience, Colombian Spanish for the author's own variant.
+const OG_LOCALES: Record<Locale, string> = { en: "en_US", es: "es_CO" };
 
 // A plain file in public/, not the opengraph-image file convention: the
 // convention only reaches routes under the same root layout, and "/" has its
-// own. One stable URL serves both layouts.
-export const OG_IMAGE = {
-  url: "/og.png",
-  width: 1200,
-  height: 630,
-  alt: "Zulma Rocio Martinez, Frontend Developer: React, TypeScript, Next.js.",
-};
+// own. One stable URL serves both layouts. It shows only the name and the
+// stack, so the same image works for both languages; its alt text does not.
+export const OG_IMAGE = { url: "/og.png", width: 1200, height: 630 };
 
 /**
- * Shared metadata for every page. Both root layouts use it, so the redirect
- * page at "/" has the same title, description and preview image as /en and
- * /es: social crawlers do not run its redirect script.
+ * Metadata for every page, in the page's language. Both root layouts use
+ * it, so the redirect page at "/" (in English) has the same title,
+ * description and preview image as /en: social crawlers do not run its
+ * redirect script.
+ *
+ * - Title and description come from the dictionaries (docs/content.md):
+ *   "name · role", and hero.intro as the description.
+ * - hreflang alternates link /en and /es to each other, with "/" as the
+ *   x-default because it picks the visitor's language.
  */
 export function siteMetadata({
   siteUrl,
   path,
+  locale,
 }: {
   siteUrl: string;
   /** Path of the page, for og:url and the canonical link. */
   path: string;
+  locale: Locale;
 }): Metadata {
+  const { meta, hero } = getDictionary(locale);
+  const description = hero.intro;
+  const title = `${SITE_NAME} · ${meta.role}`;
+  const image = { ...OG_IMAGE, alt: meta.ogImageAlt };
+
   return {
     metadataBase: new URL(siteUrl),
-    title: { default: TITLE, template: `%s | ${SITE_NAME}` },
-    description: DESCRIPTION,
+    title: { default: title, template: `%s | ${SITE_NAME}` },
+    description,
     openGraph: {
       type: "website",
       siteName: SITE_NAME,
-      title: TITLE,
-      description: DESCRIPTION,
+      title,
+      description,
       url: path,
-      images: [OG_IMAGE],
+      locale: OG_LOCALES[locale],
+      alternateLocale: locales
+        .filter((other) => other !== locale)
+        .map((other) => OG_LOCALES[other]),
+      images: [image],
     },
-    twitter: { card: "summary_large_image", images: [OG_IMAGE] },
-    alternates: { canonical: path },
+    twitter: { card: "summary_large_image", images: [image] },
+    alternates: { canonical: path, languages: languageAlternates() },
+  };
+}
+
+/** hreflang links: each language page, plus "/" as the default. */
+export function languageAlternates(base = "") {
+  return {
+    ...Object.fromEntries(locales.map((lang) => [lang, `${base}/${lang}`])),
+    "x-default": `${base}/`,
   };
 }

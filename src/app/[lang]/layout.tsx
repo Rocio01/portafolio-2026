@@ -19,7 +19,12 @@ export async function generateMetadata({
   params,
 }: LayoutProps<"/[lang]">): Promise<Metadata> {
   const { lang } = await params;
-  return siteMetadata({ siteUrl: env.NEXT_PUBLIC_SITE_URL, path: `/${lang}` });
+  if (!isLocale(lang)) notFound();
+  return siteMetadata({
+    siteUrl: env.NEXT_PUBLIC_SITE_URL,
+    path: `/${lang}`,
+    locale: lang,
+  });
 }
 
 const revealFallbackCss =

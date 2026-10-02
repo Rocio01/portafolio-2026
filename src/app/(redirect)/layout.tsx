@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 
+import { defaultLocale } from "@/i18n/config";
 import { env } from "@/lib/env";
 import { siteMetadata } from "@/lib/site-metadata";
 
@@ -13,7 +14,11 @@ import "../globals.css";
 // one people share, and social crawlers (LinkedIn, WhatsApp) read this HTML
 // without running the redirect script.
 export const metadata: Metadata = {
-  ...siteMetadata({ siteUrl: env.NEXT_PUBLIC_SITE_URL, path: "/" }),
+  ...siteMetadata({
+    siteUrl: env.NEXT_PUBLIC_SITE_URL,
+    path: "/",
+    locale: defaultLocale,
+  }),
   robots: { index: false },
 };
 

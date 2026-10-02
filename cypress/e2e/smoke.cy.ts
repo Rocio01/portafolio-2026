@@ -43,6 +43,27 @@ describe("smoke", () => {
     cy.request("/og.png").its("status").should("eq", 200);
   });
 
+  // What search engines and link-preview crawlers read, without scripts.
+  it("serves Spanish metadata and hreflang links on /es", () => {
+    cy.request("/es").then(({ body }) => {
+      const html = String(body);
+      expect(html).to.match(
+        /<title>Zulma Rocio Martinez · Desarrolladora Frontend<\/title>/,
+      );
+      expect(html).to.match(/property="og:locale" content="es_CO"/);
+      // Next writes the root URL without a trailing slash.
+      expect(html).to.match(/rel="alternate" hrefLang="en" href="[^"]*\/en"/);
+      expect(html).to.match(/rel="alternate" hrefLang="es" href="[^"]*\/es"/);
+      expect(html).to.match(
+        /rel="alternate" hrefLang="x-default" href="https?:\/\/[^"/]+\/?"/,
+      );
+    });
+    cy.request("/sitemap.xml")
+      .its("body")
+      .should("include", 'hreflang="es"')
+      .and("include", "/es</loc>");
+  });
+
   it("serves the resume the hero links to", () => {
     cy.visit("/en");
     cy.contains("a", "Download resume")
