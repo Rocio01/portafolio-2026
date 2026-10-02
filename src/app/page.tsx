@@ -6,7 +6,7 @@ export default function Home() {
       <h1 className="text-4xl font-semibold tracking-tight">
         Zulma Rocio Martinez
       </h1>
-      <p className="text-lg text-muted">
+      <p className="font-mono text-sm text-accent-text">
         Frontend Developer · React · TypeScript · Next.js
       </p>
     </main>
