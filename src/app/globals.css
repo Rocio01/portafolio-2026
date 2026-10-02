@@ -38,6 +38,14 @@
     font-family: var(--font-space-grotesk);
     font-weight: 600;
   }
+
+  /* Tailwind v4's preflight gives buttons the default arrow cursor; links
+     already get the pointer. Every enabled button here acts like a link
+     (theme switch, mobile menu), so it gets the pointer too. */
+  button:not(:disabled),
+  [role="button"]:not([aria-disabled="true"]) {
+    cursor: pointer;
+  }
 }
 
 /*
