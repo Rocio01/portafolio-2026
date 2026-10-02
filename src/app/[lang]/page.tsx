@@ -4,6 +4,7 @@ import { isLocale } from "@/i18n/config";
 import { getDictionary } from "@/i18n/get-dictionary";
 import { Header } from "@/sections/header";
 import { Hero } from "@/sections/hero";
+import { StackStrip } from "@/sections/stack-strip";
 
 export default async function Home({ params }: PageProps<"/[lang]">) {
   const { lang } = await params;
@@ -15,6 +16,7 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
       <Header locale={lang} t={t} />
       <main className="flex-1">
         <Hero t={t} />
+        <StackStrip t={t} />
       </main>
     </>
   );

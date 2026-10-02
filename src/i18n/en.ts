@@ -27,6 +27,10 @@ export const en = {
       "Frontend developer with 4+ years of production experience, now open to remote frontend and full-stack roles.",
     resume: "Download resume",
   },
+  stack: {
+    // Accessible name of the strip's <section>; not visible.
+    label: "Tech stack",
+  },
 };
 
 export type Dictionary = typeof en;
