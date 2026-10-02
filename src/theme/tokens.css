@@ -3,41 +3,34 @@
  * globals.css maps them to Tailwind utilities (bg-bg, text-ink, ...).
  * Components use the utilities, never raw hex values.
  *
- * Dark mode follows the system setting for now. The theme switch (backlog
- * item 5) adds a manual override on top of these same variables.
+ * light-dark(light, dark) picks a value from the element's color-scheme.
+ * - No data-theme (first visit): color-scheme is "light dark", so the
+ *   browser follows the system setting.
+ * - data-theme="light" or "dark" (set by the theme switch and by the inline
+ *   script in the layout before first paint): color-scheme is forced.
+ * Each color is written once, so light and dark cannot drift apart.
  */
 :root {
-  --bg: #f3f4f1;
-  --ink: #17181c;
-  --text2: #3a3d45;
-  --muted: #5a5e68;
-  --border: #d9dad4;
-  --surface: #ffffff;
-  --divider: #ecece7;
-  --tag-bg: #eef1fb;
-  --tag-fg: #1f3fbf;
-  --link: #1f3fbf;
-  --accent: #2443c9; /* button fill */
-  --accent-text: #2443c9; /* labels */
+  color-scheme: light dark;
 
+  --bg: light-dark(#f3f4f1, #111215);
+  --ink: light-dark(#17181c, #ecedef);
+  --text2: light-dark(#3a3d45, #b8bbc3);
+  --muted: light-dark(#5a5e68, #9094a0);
+  --border: light-dark(#d9dad4, #2a2c33);
+  --surface: light-dark(#ffffff, #1a1c21);
+  --divider: light-dark(#ecece7, #25272d);
+  --tag-bg: light-dark(#eef1fb, #1f2742);
+  --tag-fg: light-dark(#1f3fbf, #a9b8ff);
+  --link: light-dark(#1f3fbf, #9db0ff);
+  --accent: #2443c9; /* button fill, same in both themes */
+  --accent-text: light-dark(#2443c9, #92a1e4); /* labels */
+}
+
+:root[data-theme="light"] {
   color-scheme: light;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --bg: #111215;
-    --ink: #ecedef;
-    --text2: #b8bbc3;
-    --muted: #9094a0;
-    --border: #2a2c33;
-    --surface: #1a1c21;
-    --divider: #25272d;
-    --tag-bg: #1f2742;
-    --tag-fg: #a9b8ff;
-    --link: #9db0ff;
-    --accent: #2443c9;
-    --accent-text: #92a1e4;
-
-    color-scheme: dark;
-  }
+:root[data-theme="dark"] {
+  color-scheme: dark;
 }
