@@ -6,8 +6,17 @@ Cloudflare Pages.
 
 **Live:** https://zulmamartinez.dev
 
-Built with Next.js (App Router, static export), TypeScript (strict), Tailwind
-CSS, Vitest, Cypress and GitHub Actions. Created from my
+| Light                                                                   | Dark                                                                  |
+| ----------------------------------------------------------------------- | --------------------------------------------------------------------- |
+| ![Hero in the light theme, desktop](docs/screenshots/desktop-light.png) | ![Hero in the dark theme, desktop](docs/screenshots/desktop-dark.png) |
+
+<p align="center">
+  <img src="docs/screenshots/mobile-light.png" width="260" alt="Hero in the light theme, mobile" />
+  <img src="docs/screenshots/mobile-dark.png" width="260" alt="Hero in the dark theme, mobile" />
+</p>
+
+Built with Next.js (App Router, static export), React, TypeScript (strict),
+Tailwind CSS, Motion, Vitest, Cypress and GitHub Actions. Created from my
 [Next.js template](https://github.com/Rocio01/nextjs-template).
 
 Project documents:
@@ -15,6 +24,35 @@ Project documents:
 - [`docs/brief.md`](docs/brief.md): goals, audience and scope
 - [`docs/backlog.md`](docs/backlog.md): sprints and issues
 - [`docs/content.md`](docs/content.md): all copy in English and Spanish
+
+## Decisions
+
+**Stack.** The site is one page of content that changes only when I edit it,
+so it is a static export: Next.js renders every page at build time, and
+Cloudflare Pages serves plain HTML files with no server to run or pay for.
+TypeScript runs in strict mode. Tailwind CSS keeps the design tokens in one
+place. No UI library and no i18n library: the site is small
+enough that they would add more than they save. Motion is used only for the
+scroll reveals; everything else is CSS.
+
+**Languages (i18n).** Each language is its own static route, `/en` and `/es`,
+built with `generateStaticParams`. The copy lives in two typed dictionaries,
+`src/i18n/en.ts` and `src/i18n/es.ts`: the Spanish one has the type of the
+English one, so a missing string is a type error. Server components read the
+dictionary, so it does not ship to the browser. A static export has no server
+to read `Accept-Language`, so `/` redirects in the browser: Spanish if the
+first browser language starts with `es`, otherwise English. Each page
+declares `<html lang>`, a canonical URL and `hreflang` alternates, and the
+language switch links to the same page in the other language.
+
+**Theming.** `src/theme/tokens.css` writes each color once with
+`light-dark(light, dark)`, so the two themes cannot drift apart.
+`globals.css` maps the tokens to Tailwind utilities such as `bg-bg` and
+`text-ink`, and components use only those utilities. On a first visit the
+theme follows the system setting (`prefers-color-scheme`). The switch sets
+`data-theme` on `<html>` and stores the choice in `localStorage`. A small
+inline script in `<head>` applies the stored choice before first paint, so
+the page never flashes the wrong theme.
 
 ## Requirements
 
@@ -43,18 +81,18 @@ time, so a change requires a new build.
 
 ## Scripts
 
-| Script                 | What it does                                       |
-| ---------------------- | -------------------------------------------------- |
-| `npm run dev`          | Start the dev server                               |
-| `npm run build`        | Build the static site to `out/`                    |
-| `npm start`            | Serve `out/` on port 3000 (run `build` first)      |
-| `npm run lint`         | Run ESLint                                         |
-| `npm run lint:secrets` | Scan files for leaked secrets with secretlint      |
-| `npm run typecheck`    | Run the TypeScript compiler without output         |
-| `npm test`             | Run unit tests with Vitest                         |
-| `npm run test:watch`   | Run Vitest in watch mode                           |
-| `npm run test:e2e`     | Build, serve `out/` and run the Cypress smoke test |
-| `npm run format`       | Format all files with Prettier                     |
+| Script                 | What it does                                  |
+| ---------------------- | --------------------------------------------- |
+| `npm run dev`          | Start the dev server                          |
+| `npm run build`        | Build the static site to `out/`               |
+| `npm start`            | Serve `out/` on port 3000 (run `build` first) |
+| `npm run lint`         | Run ESLint                                    |
+| `npm run lint:secrets` | Scan files for leaked secrets with secretlint |
+| `npm run typecheck`    | Run the TypeScript compiler without output    |
+| `npm test`             | Run unit tests with Vitest                    |
+| `npm run test:watch`   | Run Vitest in watch mode                      |
+| `npm run test:e2e`     | Build, serve `out/` and run the Cypress tests |
+| `npm run format`       | Format all files with Prettier                |
 
 ## Test
 
@@ -74,24 +112,17 @@ against the static build).
 
 ```
 src/
-  app/          Routes, layout, metadata, tokens.css, icon, OG image, sitemap, robots
+  app/          Routes, layouts, metadata, global styles, icon, sitemap, robots
   components/   Reusable UI components and their tests
   sections/     Page sections (header, hero, experience, ...)
   i18n/         Typed dictionaries for English and Spanish
-  theme/        Theme provider and tokens
+  theme/        Theme logic, design tokens and fonts
   data/         Experience, projects and stack data
   lib/          Logic without UI (env validation, helpers)
 cypress/e2e/    End-to-end tests
 docs/           Brief, backlog and content
 .github/        CI workflow, Dependabot, PR and issue templates
 ```
-
-### Theming
-
-`src/app/tokens.css` defines colors as CSS variables for light and dark mode.
-Dark mode follows the operating system setting (`prefers-color-scheme`).
-`globals.css` maps the variables to Tailwind utilities such as `bg-bg`,
-`text-fg` and `bg-accent`. Use these utilities instead of hard-coded colors.
 
 ## Deploy
 
