@@ -4,7 +4,7 @@ Personal portfolio of Zulma Rocio Martinez, frontend developer. A static
 Next.js site in English and Spanish, with light and dark themes, deployed on
 Cloudflare Pages.
 
-**Live:** https://portafolio-2026.pages.dev
+**Live:** https://zulmamartinez.dev
 
 Built with Next.js (App Router, static export), TypeScript (strict), Tailwind
 CSS, Vitest, Cypress and GitHub Actions. Created from my
@@ -95,8 +95,12 @@ Dark mode follows the operating system setting (`prefers-color-scheme`).
 
 ## Deploy
 
-Production: https://portafolio-2026.pages.dev (Cloudflare Pages project
+Production: https://zulmamartinez.dev (Cloudflare Pages project
 `portafolio-2026`, connected to this repository with the Git integration).
+The domain is registered with Cloudflare Registrar and attached to the project
+under **Custom domains**, with `www.zulmamartinez.dev` as well. The project
+is also reachable at https://portafolio-2026.pages.dev; canonical URLs point
+to the custom domain.
 
 How a change reaches production:
 
@@ -109,17 +113,23 @@ How a change reaches production:
 
 Cloudflare Pages settings:
 
-| Setting                | Value                               |
-| ---------------------- | ----------------------------------- |
-| Production branch      | `main`                              |
-| Framework preset       | None                                |
-| Build command          | `npm run build`                     |
-| Build output directory | `out`                               |
-| `NEXT_PUBLIC_SITE_URL` | `https://portafolio-2026.pages.dev` |
+| Setting                | Value                       |
+| ---------------------- | --------------------------- |
+| Production branch      | `main`                      |
+| Framework preset       | None                        |
+| Build command          | `npm run build`             |
+| Build output directory | `out`                       |
+| `NEXT_PUBLIC_SITE_URL` | `https://zulmamartinez.dev` |
 
 Cloudflare reads the Node.js version from `.nvmrc`. `NEXT_PUBLIC_SITE_URL` is
-read at build time: after changing it, retry the latest deployment. When a
-custom domain is connected (backlog item 22), set the variable to that domain.
+read at build time: after changing it, retry the latest deployment. Set it in
+both Production and Preview.
+
+Analytics: Cloudflare Web Analytics, added under **Analytics & Logs > Web
+Analytics** for `zulmamartinez.dev` with automatic setup. Cloudflare injects
+the beacon at the edge into HTML served to browsers on the custom domain, so
+there is no analytics code in this repository and no cookies. Visits to
+`portafolio-2026.pages.dev` are not counted.
 
 To create the project again: **Workers & Pages > Create application**, then
 the **"Looking to deploy Pages? Get started"** link at the bottom (the main
