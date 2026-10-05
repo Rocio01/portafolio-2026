@@ -125,9 +125,11 @@ Cloudflare reads the Node.js version from `.nvmrc`. `NEXT_PUBLIC_SITE_URL` is
 read at build time: after changing it, retry the latest deployment. Set it in
 both Production and Preview.
 
-Analytics: Cloudflare Web Analytics, enabled under the project's **Metrics**
-tab. Cloudflare injects the beacon at deploy time, so there is no analytics
-code in this repository and no cookies.
+Analytics: Cloudflare Web Analytics, added under **Analytics & Logs > Web
+Analytics** for `zulmamartinez.dev` with automatic setup. Cloudflare injects
+the beacon at the edge into HTML served to browsers on the custom domain, so
+there is no analytics code in this repository and no cookies. Visits to
+`portafolio-2026.pages.dev` are not counted.
 
 To create the project again: **Workers & Pages > Create application**, then
 the **"Looking to deploy Pages? Get started"** link at the bottom (the main
