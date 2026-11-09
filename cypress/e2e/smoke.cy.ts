@@ -75,9 +75,9 @@ describe("smoke", () => {
 
   it("switches language from the toggle", () => {
     cy.visit("/en");
-    cy.get('a[aria-label="Español"]').click();
+    cy.get('a[aria-label="ES – Español"]').click();
     cy.location("pathname").should("match", /^\/es\/?$/);
-    cy.get('a[aria-label="English"]').should("be.visible");
+    cy.get('a[aria-label="EN – English"]').should("be.visible");
   });
 
   it("applies a stored theme before the app loads", () => {

@@ -33,7 +33,9 @@ export function LanguageToggle({
         href={`/${other}`}
         hrefLang={other}
         lang={other}
-        aria-label={switchToLabel}
+        // Starts with the visible "ES"/"EN" so voice control users can say
+        // what they see (WCAG 2.5.3 Label in Name).
+        aria-label={`${other.toUpperCase()} – ${switchToLabel}`}
         // A tooltip for the compact header, where "ES" or "EN" stands alone.
         title={switchToLabel}
         className="inline-flex min-h-11 min-w-11 items-center justify-center px-2 text-muted no-underline hover:text-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-link"
