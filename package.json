@@ -61,5 +61,11 @@
       "prettier --write"
     ],
     "*.{json,md,css,yml,yaml}": "prettier --write"
+  },
+  "overrides": {
+    "compression": "^1.8.2",
+    "@typescript-eslint/typescript-estree": {
+      "minimatch": "^11.0.5"
+    }
   }
 }
