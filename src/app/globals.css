@@ -154,3 +154,14 @@
     animation: none;
   }
 }
+
+/*
+ * Scroll reveals (Reveal): Motion keeps only the fade for reduced motion, but
+ * its jump from the 24px start offset can land a frame after the fade starts.
+ * Pin the transform so the section never moves, not even for that frame.
+ */
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal] {
+    transform: none !important;
+  }
+}
